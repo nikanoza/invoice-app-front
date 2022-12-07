@@ -27,7 +27,7 @@ export type NewInvoice = {
   total: number;
 };
 
-export interface Invoice extends NewInvoice {
+export interface InvoiceType extends NewInvoice {
   id: string;
 }
 
