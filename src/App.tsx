@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Header } from "components";
+import { Invoice, Invoices } from "pages";
+import { useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 
 function App() {
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+      <Routes>
+        <Route path="/" element={<Navigate to="/invoices" replace />} />
+        <Route path="/invoices" element={<Invoices darkMode={darkMode} />} />
+        <Route path="/invoices/:id" element={<Invoice darkMode={darkMode} />} />
+      </Routes>
+    </Main>
   );
 }
 
 export default App;
+
+const Main = styled.div`
+  font-size: 2em;
+  font-style: normal;
+  font-weight: 700;
+`;
