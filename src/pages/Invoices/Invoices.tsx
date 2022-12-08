@@ -1,3 +1,5 @@
+import { FilterSelect } from "components";
+import { useState } from "react";
 import styled from "styled-components";
 import { InvoiceType, StyledComponentsProps } from "types";
 
@@ -7,6 +9,9 @@ type PropsType = {
 };
 
 const Invoices = (props: PropsType) => {
+  const [filerBy, setFilterBy] = useState<"draft" | "pending" | "paid" | "all">(
+    "all"
+  );
   return (
     <Wrapper>
       <Controls>
@@ -18,6 +23,11 @@ const Invoices = (props: PropsType) => {
               : props.invoices.length + " invoices"}
           </Amount>
         </div>
+        <FilterSelect
+          filerBy={filerBy}
+          setFilterBy={setFilterBy}
+          darkMode={props.darkMode}
+        />
       </Controls>
     </Wrapper>
   );
