@@ -20,7 +20,6 @@ export type NewInvoice = {
   clientName: string;
   clientEmail: string;
   status: string;
-  active: boolean;
   senderAddress: Address;
   clientAddress: Address;
   items: Item[];

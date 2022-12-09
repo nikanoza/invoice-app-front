@@ -1,6 +1,5 @@
-import { FilterSelect } from "components";
+import { FilterSelect, InvoiceBox } from "components";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Plus } from "svg";
 import { InvoiceType, StyledComponentsProps } from "types";
@@ -38,6 +37,11 @@ const Invoices = (props: PropsType) => {
           <ButtonTextDesktop>New Invoice</ButtonTextDesktop>
         </NewInvoiceBtn>
       </Controls>
+      <InvoicesList>
+        {props.invoices.map((invoice) => (
+          <InvoiceBox invoice={invoice} darkMode={props.darkMode} />
+        ))}
+      </InvoicesList>
     </Wrapper>
   );
 };
@@ -47,11 +51,15 @@ export default Invoices;
 const Wrapper = styled.div`
   width: 100%;
   padding: 32px 24px 105px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Controls = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
 `;
 
 const Title = styled.h2(
@@ -116,4 +124,13 @@ const Circle = styled.span`
   border-radius: 50%;
   background-color: white;
   margin-left: 6px;
+`;
+
+const InvoicesList = styled.ul`
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  margin-top: 32px;
+  width: 100%;
 `;
