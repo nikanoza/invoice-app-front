@@ -1,6 +1,8 @@
 import { FilterSelect } from "components";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { Plus } from "svg";
 import { InvoiceType, StyledComponentsProps } from "types";
 
 type PropsType = {
@@ -28,6 +30,13 @@ const Invoices = (props: PropsType) => {
           setFilterBy={setFilterBy}
           darkMode={props.darkMode}
         />
+        <NewInvoiceBtn>
+          <Circle>
+            <Plus />
+          </Circle>
+          <ButtonTextMobile>New</ButtonTextMobile>
+          <ButtonTextDesktop>New Invoice</ButtonTextDesktop>
+        </NewInvoiceBtn>
       </Controls>
     </Wrapper>
   );
@@ -64,3 +73,47 @@ const Amount = styled.h4(
   color: ${props.dark ? "var(--lightGray)" : "var(--Gray)"}
 `
 );
+
+const NewInvoiceBtn = styled.button`
+  width: 90px;
+  height: 44px;
+  outline: none;
+  border: none;
+  border-radius: 24px;
+  background-color: var(--Violet);
+  margin-left: 18px;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  @media (min-width: 768px) {
+    margin-left: 40px;
+  }
+`;
+const ButtonTextMobile = styled.span`
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  color: white;
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
+const ButtonTextDesktop = styled(ButtonTextMobile)`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  }
+`;
+
+const Circle = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: white;
+  margin-left: 6px;
+`;

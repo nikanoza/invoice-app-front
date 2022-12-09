@@ -33,4 +33,5 @@ export interface InvoiceType extends NewInvoice {
 
 export type StyledComponentsProps = {
   dark?: boolean;
+  active?: boolean;
 };
