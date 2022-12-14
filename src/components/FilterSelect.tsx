@@ -17,7 +17,11 @@ const FilterSelect: React.FC<PropsType> = (props) => {
   };
 
   const optionClickHandler = (str: "draft" | "pending" | "paid") => {
-    props.setFilterBy(str);
+    if (str === props.filerBy) {
+      props.setFilterBy("all");
+    } else {
+      props.setFilterBy(str);
+    }
     setShowOptions(false);
   };
 

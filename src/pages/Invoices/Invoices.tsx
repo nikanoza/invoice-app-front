@@ -54,6 +54,9 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (min-width: 768px) {
+    padding: 56px 48px 173px 48px;
+  }
 `;
 
 const Controls = styled.div`
@@ -68,7 +71,12 @@ const Title = styled.h2(
   font-weight: 700;
   line-height: 22.4px;
   letter-spacing: -0.63px;
-  color: ${props.dark ? "white" : "var(--Dark)"}
+  color: ${props.dark ? "white" : "var(--Dark)"};
+  @media (min-width: 768px){
+    font-size: 32px;
+    line-height: 35.84px;
+    letter-spacing: -1px;
+  }
 `
 );
 
@@ -95,6 +103,9 @@ const NewInvoiceBtn = styled.button`
   column-gap: 8px;
   @media (min-width: 768px) {
     margin-left: 40px;
+    width: 150px;
+    height: 48px;
+    column-gap: 16px;
   }
 `;
 const ButtonTextMobile = styled.span`
