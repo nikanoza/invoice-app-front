@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ArrowRight } from "svg";
 import { InvoiceType, StyledComponentsProps } from "types";
 
 const InvoiceBox: React.FC<{ darkMode: boolean; invoice: InvoiceType }> = (
@@ -17,11 +18,14 @@ const InvoiceBox: React.FC<{ darkMode: boolean; invoice: InvoiceType }> = (
           <span style={{ color: "var(--Sky)" }}>#</span>
           {props.invoice.id}
         </Id>
-        <Name dark={props.darkMode}>{props.invoice.clientName}</Name>
+        <NameMobile dark={props.darkMode}>
+          {props.invoice.clientName}
+        </NameMobile>
       </Header>
       <PriceInfo>
         <PriceBox>
           <DateBox dark={props.darkMode}>{dateStr}</DateBox>
+          <NameDesktop>{props.invoice.clientName}</NameDesktop>
           <Price dark={props.darkMode}>£{props.invoice.total}</Price>
         </PriceBox>
         <Status status={props.invoice.status} dark={props.darkMode}>
@@ -53,6 +57,9 @@ const InvoiceBox: React.FC<{ darkMode: boolean; invoice: InvoiceType }> = (
           </StatusText>
         </Status>
       </PriceInfo>
+      <Arrow>
+        <ArrowRight />
+      </Arrow>
     </Invoice>
   );
 };
@@ -61,7 +68,7 @@ export default InvoiceBox;
 
 const Invoice = styled.div(
   (props: StyledComponentsProps) => `
-  width: 100%;
+  width: 327px;
   padding: 24px;
   border-radius: 8px;
   background-color: ${props.dark ? "var(--darkBlue)" : "white"};
@@ -69,6 +76,12 @@ const Invoice = styled.div(
     props.dark
       ? "0px 10px 10px -10px rgba(72, 84, 159, 0.100397);"
       : "0px 10px 10px -10px rgba(72, 84, 159, 0.100397);"
+  };
+  @media (min-width: 768px){
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    width: 100%;
   };
 `
 );
@@ -89,24 +102,46 @@ const Id = styled.h2(
 `
 );
 
-const Name = styled.h3(
+const NameMobile = styled.h3(
   (props: StyledComponentsProps) => `
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
   letter-spacing: -0.25px;
   color: ${props.dark ? "white" : "#858BB2"};
+  @media (min-width: 768px){
+    display: none;
+  }
 `
 );
+
+const NameDesktop = styled(NameMobile)`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    margin-left: 37px;
+  }
+`;
 
 const PriceInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 24px;
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+    margin-top: 0;
+    margin-left: 27px;
+  } ;
 `;
 
-const PriceBox = styled.div``;
+const PriceBox = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: center;
+    width: 369px;
+  }
+`;
 
 const DateBox = styled.h3(
   (props: StyledComponentsProps) => `
@@ -125,6 +160,9 @@ const Price = styled.span(
   line-height: 24px;
   letter-spacing: -0.8px;
   color: ${props.dark ? "white" : "var(--Dark)"};
+  @media (min-width: 768px){
+    margin-left: auto;
+  };
 `
 );
 
@@ -146,6 +184,9 @@ const Status = styled.div(
       ? "rgba(223, 227, 250, 0.06)"
       : "rgba(55, 59, 83, 0.06)"
   };
+  @media (min-width: 768px){
+    margin-left: 40px   
+  }
 `
 );
 
@@ -161,4 +202,12 @@ const StatusText = styled.h3`
   line-height: 15px;
   letter-spacing: -0.25px;
   text-transform: capitalize;
+`;
+
+const Arrow = styled.div`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+    margin-left: 20px;
+  }
 `;

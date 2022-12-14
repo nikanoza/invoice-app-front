@@ -39,7 +39,11 @@ const Invoices = (props: PropsType) => {
       </Controls>
       <InvoicesList>
         {props.invoices.map((invoice) => (
-          <InvoiceBox invoice={invoice} darkMode={props.darkMode} />
+          <InvoiceBox
+            key={invoice.id}
+            invoice={invoice}
+            darkMode={props.darkMode}
+          />
         ))}
       </InvoicesList>
     </Wrapper>
@@ -141,6 +145,7 @@ const InvoicesList = styled.ul`
   list-style: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
   row-gap: 16px;
   margin-top: 32px;
   width: 100%;
