@@ -61,12 +61,18 @@ const Wrapper = styled.div`
   @media (min-width: 768px) {
     padding: 56px 48px 173px 48px;
   }
+  @media (min-width: 768px) {
+    padding-top: 72px;
+  } ;
 `;
 
 const Controls = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  @media (min-width: 1440px) {
+    width: 800px;
+  } ;
 `;
 
 const Title = styled.h2(

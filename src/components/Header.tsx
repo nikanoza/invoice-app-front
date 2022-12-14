@@ -38,6 +38,13 @@ const HeaderElement = styled.header`
   background-color: var(--HeaderBackground);
   display: flex;
   align-items: center;
+  @media (min-width: 1440px) {
+    width: 103px;
+    height: 100%;
+    flex-direction: column;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
 `;
 
 const LogoDiv = styled.div`
@@ -47,6 +54,10 @@ const LogoDiv = styled.div`
   border-bottom-right-radius: 20px;
   position: relative;
   overflow: hidden;
+  @media (min-width: 1440px) {
+    width: 100%;
+    height: 103px;
+  } ;
 `;
 
 const TopShape = styled.div`
@@ -66,6 +77,9 @@ const BottomShape = styled.div`
   position: absolute;
   left: 0;
   top: 36.35px;
+  @media (min-width: 1440px) {
+    top: 52px;
+  }
 `;
 
 const LogoShape = styled.div`
@@ -77,6 +91,10 @@ const LogoShape = styled.div`
 
 const ThemeDiv = styled.div`
   margin-left: auto;
+  @media (min-width: 1440px) {
+    margin-left: 0;
+    margin-top: auto;
+  }
 `;
 
 const Line = styled.div`
@@ -84,6 +102,12 @@ const Line = styled.div`
   height: 100%;
   background-color: #494e6e;
   margin-left: 24px;
+  @media (min-width: 1440px) {
+    width: 100%;
+    height: 1px;
+    margin-top: 32.1px;
+    margin-left: 0;
+  }
 `;
 
 const Avatar = styled.img`
@@ -92,4 +116,7 @@ const Avatar = styled.img`
   border-radius: 50%;
   margin-left: 24px;
   margin-right: 20px;
+  @media (min-width: 1440px) {
+    margin: 24px 0 24px 0;
+  }
 `;

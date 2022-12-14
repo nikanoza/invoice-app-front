@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ArrowRight } from "svg";
 import { InvoiceType, StyledComponentsProps } from "types";
@@ -11,8 +12,14 @@ const InvoiceBox: React.FC<{ darkMode: boolean; invoice: InvoiceType }> = (
     .split(" ");
   const dateStr = `Due ${dueDay} ${dueMonth} ${dueYear}`;
 
+  const navigate = useNavigate();
+
+  const viewInvoice = () => {
+    navigate("/invoices/" + props.invoice.id);
+  };
+
   return (
-    <Invoice dark={props.darkMode}>
+    <Invoice dark={props.darkMode} onClick={viewInvoice}>
       <Header>
         <Id dark={props.darkMode}>
           <span style={{ color: "var(--Sky)" }}>#</span>
@@ -72,17 +79,25 @@ const Invoice = styled.div(
   padding: 24px;
   border-radius: 8px;
   background-color: ${props.dark ? "var(--darkBlue)" : "white"};
+  border: 1px solid transparent;
+  cursor: pointer;
   box-shadow: ${
     props.dark
       ? "0px 10px 10px -10px rgba(72, 84, 159, 0.100397);"
       : "0px 10px 10px -10px rgba(72, 84, 159, 0.100397);"
   };
+  &:hover{
+    border: 1px solid var(--Violet);
+  }
   @media (min-width: 768px){
     display: flex;
     align-items: center;
-    padding: 16px;
+    padding: 16px 24px;
     width: 100%;
-  };
+  }
+  @media (min-width: 768px){
+    width: 800px;
+  }
 `
 );
 
@@ -121,6 +136,10 @@ const NameDesktop = styled(NameMobile)`
     display: block;
     margin-left: 37px;
   }
+  @media (min-width: 1440px) {
+    display: block;
+    margin-left: 100px;
+  }
 `;
 
 const PriceInfo = styled.div`
@@ -132,6 +151,9 @@ const PriceInfo = styled.div`
     justify-content: flex-start;
     margin-top: 0;
     margin-left: 27px;
+  }
+  @media (min-width: 1440px) {
+    margin-left: auto;
   } ;
 `;
 
@@ -140,6 +162,11 @@ const PriceBox = styled.div`
     display: flex;
     align-items: center;
     width: 369px;
+  }
+  @media (min-width: 1440px) {
+    display: flex;
+    align-items: center;
+    width: 403px;
   }
 `;
 

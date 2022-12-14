@@ -46,5 +46,9 @@ const Main = styled.div(
   font-weight: 700;
   min-height: 100%;
   background-color: ${props.dark ? "var(--SemiDark)" : "var(--Light)"};
+  @media (min-width: 1440px){
+    display: flex;
+    height: 100%;
+  }
 `
 );
