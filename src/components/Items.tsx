@@ -4,7 +4,7 @@ import { Item, StyledComponentsProps } from "types";
 const Items: React.FC<{ items: Item[]; darkMode: boolean }> = (props) => {
   return (
     <Main dark={props.darkMode}>
-      <ItemsList>
+      <ItemsListMobile>
         {props.items.map((item: Item) => (
           <ItemInfo key={item.name}>
             <ItemInfoLeft>
@@ -16,7 +16,51 @@ const Items: React.FC<{ items: Item[]; darkMode: boolean }> = (props) => {
             <Name dark={props.darkMode}>£ {item.total}</Name>
           </ItemInfo>
         ))}
-      </ItemsList>
+      </ItemsListMobile>
+      <ItemListDesktop>
+        <ListHeader>
+          <HeaderTd dark={props.darkMode}>Item Name</HeaderTd>
+          <ListRight>
+            <HeaderTd dark={props.darkMode}>QTY.</HeaderTd>
+            <HeaderTd
+              dark={props.darkMode}
+              style={{
+                marginRight: "15px",
+              }}
+            >
+              Price
+            </HeaderTd>
+            <HeaderTd dark={props.darkMode}>Total</HeaderTd>
+          </ListRight>
+        </ListHeader>
+        <ListDesktop>
+          {props.items.map((item: Item) => (
+            <Row key={item.name}>
+              <Name dark={props.darkMode}>{item.name}</Name>
+              <ListRight>
+                <Name
+                  dark={props.darkMode}
+                  style={{
+                    color: props.darkMode ? "var(--lightGray)" : "var(--Sky)",
+                  }}
+                >
+                  {item.quantity}
+                </Name>
+                <Name
+                  dark={props.darkMode}
+                  style={{
+                    color: props.darkMode ? "var(--lightGray)" : "var(--Sky)",
+                    margin: "auto",
+                  }}
+                >
+                  £ {item.price.toFixed(2)}
+                </Name>
+                <Name dark={props.darkMode}>£ {item.total.toFixed(2)}</Name>
+              </ListRight>
+            </Row>
+          ))}
+        </ListDesktop>
+      </ItemListDesktop>
     </Main>
   );
 };
@@ -32,12 +76,15 @@ const Main = styled.main(
 `
 );
 
-const ItemsList = styled.ul`
+const ItemsListMobile = styled.ul`
   display: flex;
   flex-direction: column;
   row-gap: 24px;
   padding: 24px;
   list-style: none;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 
 const ItemInfo = styled.div`
@@ -65,3 +112,52 @@ const Price = styled(Name)(
 );
 
 const ItemInfoLeft = styled.div``;
+
+const ItemListDesktop = styled.div`
+  display: none;
+  padding: 32px;
+  @media (min-width: 768px) {
+    display: block;
+  }
+`;
+
+const ListHeader = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+`;
+
+const ListRight = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 284px;
+`;
+
+const HeaderTd = styled.span(
+  (props: StyledComponentsProps) => `
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.23px;
+  text-transform: capitalize;
+  color: ${props.dark ? "var(--lightGray)" : "var(--Sky)"};
+`
+);
+
+const ListDesktop = styled.ul`
+  display: flex;
+  flex-direction: column;
+  row-gap: 32px;
+  list-style: none;
+  margin-top: 32px;
+`;
+
+const Row = styled.li`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;

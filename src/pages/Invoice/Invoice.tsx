@@ -64,12 +64,17 @@ const Invoice = (props: PropsType) => {
                 </StatusText>
               </Status>
             </StatusSection>
+            <ControlsDesktop>
+              <Controls darkMode={props.darkMode} invoiceId={invoice?.id} />
+            </ControlsDesktop>
           </Header>
         ) : null}
         {invoice ? <Info darkMode={props.darkMode} invoice={invoice} /> : null}
       </InvoiceTop>
       {invoice ? (
-        <Controls darkMode={props.darkMode} invoiceId={invoice?.id}></Controls>
+        <ControlsMobile>
+          <Controls darkMode={props.darkMode} invoiceId={invoice?.id} />
+        </ControlsMobile>
       ) : null}
     </InvoiceElement>
   );
@@ -121,6 +126,11 @@ const Header = styled.div(
   background-color: ${props.dark ? "var(--darkBlue)" : "white"};
   border-radius: 8px;
   box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+  @media (min-width: 768px){
+    padding-left: 32px;
+    padding-right: 32px;
+    width: 700px;
+  }
 `
 );
 
@@ -129,6 +139,10 @@ const StatusSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+    column-gap: 16px;
+  }
 `;
 
 const StatusText = styled(Text)`
@@ -153,9 +167,6 @@ const Status = styled.div(
       ? "rgba(223, 227, 250, 0.06)"
       : "rgba(55, 59, 83, 0.06)"
   };
-  @media (min-width: 768px){
-    margin-left: 40px   
-  }
 `
 );
 
@@ -163,4 +174,17 @@ const Circle = styled.span`
   width: 8px;
   height: 8px;
   border-radius: 50%;
+`;
+
+const ControlsMobile = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
+const ControlsDesktop = styled.div`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  }
 `;

@@ -34,6 +34,9 @@ const Main = styled.main(
       props.dark
         ? "box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);"
         : "box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);"
+    };
+    @media (min-width:768px){
+      margin-top: 0;
     }
 `
 );

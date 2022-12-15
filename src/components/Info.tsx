@@ -45,7 +45,10 @@ const Info: React.FC<PropsType> = (props) => {
           <Client>
             <Description dark={props.darkMode}>bill to</Description>
             <Text dark={props.darkMode}>{props.invoice.clientName}</Text>
-            <InfoHeaderRight dark={props.darkMode} style={{ marginTop: "8px" }}>
+            <InfoHeaderRight
+              dark={props.darkMode}
+              style={{ marginTop: "8px", textAlign: "left" }}
+            >
               <AddressInfo>{props.invoice.clientAddress.street}</AddressInfo>
               <AddressInfo>{props.invoice.clientAddress.city}</AddressInfo>
               <AddressInfo>{props.invoice.clientAddress.postCode}</AddressInfo>
@@ -60,7 +63,7 @@ const Info: React.FC<PropsType> = (props) => {
       </ClientInfo>
       <Items items={props.invoice.items} darkMode={props.darkMode} />
       <GrandTotal dark={props.darkMode}>
-        <GrandTotalText>Grand Total</GrandTotalText>
+        <GrandTotalText>Amount Due</GrandTotalText>
         <Total>£ {props.invoice.total.toFixed(2)}</Total>
       </GrandTotal>
     </InfoSection>
@@ -77,6 +80,9 @@ const InfoSection = styled.section(
   background-color: ${props.dark ? "var(--darkBlue)" : "white"};
   border-radius: 8px;
   box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
+  @media (min-width: 768px){
+    width: 700px;
+  }
 `
 );
 const Id = styled.h2(
@@ -86,6 +92,11 @@ const Id = styled.h2(
     line-height: 15px;
     letter-spacing: -0.25px;
     color: ${props.dark ? "white" : "var(--Dark)"};
+    @media (min-width: 768px){
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: -0.8px;
+    }
   `
 );
 
@@ -98,7 +109,14 @@ const Description = styled(Id)(
 `
 );
 
-const InfoHeader = styled.div``;
+const InfoHeader = styled.div`
+  @media (min-width: 768px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
 
 const InfoHeaderLeft = styled.div``;
 
@@ -109,6 +127,9 @@ const InfoHeaderRight = styled.div(
   line-height: 18px;
   letter-spacing: -0.23px;
   color: ${props.dark ? "var(--lightGray)" : "var(--Sky)"};
+  @media (min-width: 768px){
+    text-align: right;
+  }
 `
 );
 
@@ -118,16 +139,27 @@ const AddressInfo = styled.h3`
 
 const ClientInfo = styled.div`
   margin-top: 32px;
+  @media (min-width: 768px) {
+    display: flex;
+    align-items: flex-start;
+    column-gap: 110px;
+  }
 `;
 
 const ClientInfoLeft = styled.div`
   display: flex;
   align-items: center;
   column-gap: 41px;
+  @media (min-width: 768px) {
+    column-gap: 98px;
+  }
 `;
 
 const ClientInfoRight = styled.div`
   margin-top: 32px;
+  @media (min-width: 768px) {
+    margin-top: 0;
+  }
 `;
 
 const DateInfo = styled.div``;
@@ -156,6 +188,10 @@ const GrandTotal = styled.div(
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     background-color: ${props.dark ? "var(--Dark)" : "#373B53"};
+    @media (min-width: 768px){
+      justify-content: space-between;
+      padding: 0 32px;
+    }
   `
 );
 
@@ -174,4 +210,8 @@ const Total = styled.p`
   line-height: 32px;
   letter-spacing: -0.42px;
   color: white;
+  @media (min-width: 768px) {
+    font-size: 24px;
+    letter-spacing: -0.5px;
+  }
 `;
