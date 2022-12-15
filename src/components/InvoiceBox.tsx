@@ -93,7 +93,7 @@ const Invoice = styled.div(
     width: 100%;
   }
   @media (min-width: 768px){
-    width: 800px;
+    width: 700px;
   }
 `
 );

@@ -59,7 +59,7 @@ const Info: React.FC<PropsType> = (props) => {
         </ClientInfoRight>
       </ClientInfo>
       <Items items={props.invoice.items} darkMode={props.darkMode} />
-      <GrandTotal>
+      <GrandTotal dark={props.darkMode}>
         <GrandTotalText>Grand Total</GrandTotalText>
         <Total>£ {props.invoice.total.toFixed(2)}</Total>
       </GrandTotal>

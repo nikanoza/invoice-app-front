@@ -51,7 +51,6 @@ const Main = styled.div(
   background-color: ${props.dark ? "var(--SemiDark)" : "var(--Light)"};
   @media (min-width: 1440px){
     display: flex;
-    height: 100%;
   }
 `
 );

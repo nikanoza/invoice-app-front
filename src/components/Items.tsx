@@ -3,7 +3,7 @@ import { Item, StyledComponentsProps } from "types";
 
 const Items: React.FC<{ items: Item[]; darkMode: boolean }> = (props) => {
   return (
-    <Main>
+    <Main dark={props.darkMode}>
       <ItemsList>
         {props.items.map((item: Item) => (
           <ItemInfo key={item.name}>

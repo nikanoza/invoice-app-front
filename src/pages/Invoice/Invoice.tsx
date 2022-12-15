@@ -1,4 +1,5 @@
 import { Info } from "components";
+import Controls from "components/Controls";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -17,54 +18,59 @@ const Invoice = (props: PropsType) => {
 
   return (
     <InvoiceElement>
-      <ReturnBox>
-        <ArrowLeft />
-        <Link
-          to="/invoices"
-          style={{
-            textDecoration: "none",
-            color: props.darkMode ? "white" : "var(--Dark)",
-          }}
-        >
-          <Text dark={props.darkMode}>Go Back</Text>
-        </Link>
-      </ReturnBox>
+      <InvoiceTop>
+        <ReturnBox>
+          <ArrowLeft />
+          <Link
+            to="/invoices"
+            style={{
+              textDecoration: "none",
+              color: props.darkMode ? "white" : "var(--Dark)",
+            }}
+          >
+            <Text dark={props.darkMode}>Go Back</Text>
+          </Link>
+        </ReturnBox>
+        {invoice ? (
+          <Header dark={props.darkMode}>
+            <StatusSection>
+              <StatusText>Status</StatusText>
+              <Status status={invoice.status} dark={props.darkMode}>
+                <Circle
+                  style={{
+                    backgroundColor:
+                      invoice.status === "paid"
+                        ? "rgb(51, 214, 159)"
+                        : invoice.status === "pending"
+                        ? "rgba(255, 143, 0, 1)"
+                        : props.darkMode
+                        ? "rgba(223, 227, 250, 1)"
+                        : "rgba(55, 59, 83, 1)",
+                  }}
+                />
+                <StatusText
+                  style={{
+                    color:
+                      invoice.status === "paid"
+                        ? "rgb(51, 214, 159)"
+                        : invoice.status === "pending"
+                        ? "rgba(255, 143, 0, 1)"
+                        : props.darkMode
+                        ? "rgba(223, 227, 250, 1)"
+                        : "rgba(55, 59, 83, 1)",
+                  }}
+                >
+                  {invoice.status}
+                </StatusText>
+              </Status>
+            </StatusSection>
+          </Header>
+        ) : null}
+        {invoice ? <Info darkMode={props.darkMode} invoice={invoice} /> : null}
+      </InvoiceTop>
       {invoice ? (
-        <Header dark={props.darkMode}>
-          <StatusSection>
-            <StatusText>Status</StatusText>
-            <Status status={invoice.status} dark={props.darkMode}>
-              <Circle
-                style={{
-                  backgroundColor:
-                    invoice.status === "paid"
-                      ? "rgb(51, 214, 159)"
-                      : invoice.status === "pending"
-                      ? "rgba(255, 143, 0, 1)"
-                      : props.darkMode
-                      ? "rgba(223, 227, 250, 1)"
-                      : "rgba(55, 59, 83, 1)",
-                }}
-              />
-              <StatusText
-                style={{
-                  color:
-                    invoice.status === "paid"
-                      ? "rgb(51, 214, 159)"
-                      : invoice.status === "pending"
-                      ? "rgba(255, 143, 0, 1)"
-                      : props.darkMode
-                      ? "rgba(223, 227, 250, 1)"
-                      : "rgba(55, 59, 83, 1)",
-                }}
-              >
-                {invoice.status}
-              </StatusText>
-            </Status>
-          </StatusSection>
-        </Header>
+        <Controls darkMode={props.darkMode} invoiceId={invoice?.id}></Controls>
       ) : null}
-      {invoice ? <Info darkMode={props.darkMode} invoice={invoice} /> : null}
     </InvoiceElement>
   );
 };
@@ -72,6 +78,11 @@ const Invoice = (props: PropsType) => {
 export default Invoice;
 
 const InvoiceElement = styled.main`
+  width: 100%;
+  height: 100%;
+`;
+
+const InvoiceTop = styled.div`
   width: 100%;
   height: 100%;
   padding: 32px 24px 0 24px;
@@ -122,11 +133,6 @@ const StatusSection = styled.div`
 
 const StatusText = styled(Text)`
   color: var(--Gray);
-`;
-
-const InfoSection = styled.section`
-  width: 100%;
-  padding: 24px;
 `;
 
 const Status = styled.div(

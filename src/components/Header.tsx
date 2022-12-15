@@ -40,7 +40,8 @@ const HeaderElement = styled.header`
   align-items: center;
   @media (min-width: 1440px) {
     width: 103px;
-    height: 100%;
+    height: 100vh;
+    position: fixed;
     flex-direction: column;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
