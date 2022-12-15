@@ -1,3 +1,4 @@
+import { dateTransformer } from "helpers";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ArrowRight } from "svg";
@@ -6,11 +7,7 @@ import { InvoiceType, StyledComponentsProps } from "types";
 const InvoiceBox: React.FC<{ darkMode: boolean; invoice: InvoiceType }> = (
   props
 ) => {
-  const dueDate = new Date(props.invoice.paymentDue);
-  const [dueWeekday, dueMonth, dueDay, dueYear] = dueDate
-    .toDateString()
-    .split(" ");
-  const dateStr = `Due ${dueDay} ${dueMonth} ${dueYear}`;
+  const dateStr = `Due ${dateTransformer(props.invoice.paymentDue)}`;
 
   const navigate = useNavigate();
 

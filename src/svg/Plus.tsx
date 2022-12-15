@@ -21,5 +21,4 @@ const attrs = styled.svg.attrs({
 const Svg = styled(attrs)`
   width: 11px;
   height: 11px;
-  cursor: pointer;
 `;
