@@ -148,7 +148,6 @@ const ClientInfo = styled.div`
 
 const ClientInfoLeft = styled.div`
   display: flex;
-  align-items: center;
   column-gap: 41px;
   @media (min-width: 768px) {
     column-gap: 98px;

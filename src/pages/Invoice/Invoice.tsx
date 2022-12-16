@@ -94,6 +94,12 @@ const InvoiceTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (min-width: 768px) {
+    padding: 48px 40px 0 40px;
+  }
+  @media (min-width: 768px) {
+    padding-top: 64px;
+  }
 `;
 
 const ReturnBox = styled.div`
@@ -101,6 +107,10 @@ const ReturnBox = styled.div`
   align-items: center;
   column-gap: 23.66px;
   align-self: flex-start;
+  @media (min-width: 1440px) {
+    align-self: center;
+    margin-right: 625px;
+  }
 `;
 
 const Text = styled.h3(
