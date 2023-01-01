@@ -5,6 +5,7 @@ import { NewInvoice, StyledComponentsProps } from "types";
 import Backdrop from "./Backdrop";
 import BillFrom from "./BillFrom";
 import BillTo from "./BillTo";
+import InvoiceInfoForm from "./InvoiceInfoForm";
 
 const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
   props
@@ -33,6 +34,11 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
         />
         <FormSection style={{ marginTop: "16px" }}>Bill To</FormSection>
         <BillTo register={register} darkMode={props.darkMode} errors={errors} />
+        <InvoiceInfoForm
+          register={register}
+          darkMode={props.darkMode}
+          errors={errors}
+        />
       </Card>
     </Backdrop>
   );
