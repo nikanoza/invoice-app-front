@@ -1,4 +1,4 @@
-import { FilterSelect, InvoiceBox } from "components";
+import { FilterSelect, FormComponent, InvoiceBox } from "components";
 import { useState } from "react";
 import styled from "styled-components";
 import { Plus } from "svg";
@@ -15,6 +15,7 @@ const Invoices = (props: PropsType) => {
   );
   return (
     <Wrapper>
+      <FormComponent darkMode={props.darkMode} edit={false} />
       <Controls>
         <div>
           <Title dark={props.darkMode}>Invoices</Title>
@@ -61,8 +62,9 @@ const Wrapper = styled.div`
   @media (min-width: 768px) {
     padding: 56px 48px 173px 48px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 1440px) {
     padding-top: 72px;
+    padding-bottom: 0;
   } ;
 `;
 
@@ -111,6 +113,7 @@ const NewInvoiceBtn = styled.button`
   display: flex;
   align-items: center;
   column-gap: 8px;
+  cursor: pointer;
   @media (min-width: 768px) {
     margin-left: 40px;
     width: 150px;
