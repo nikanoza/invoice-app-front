@@ -6,6 +6,7 @@ import Backdrop from "./Backdrop";
 import BillFrom from "./BillFrom";
 import BillTo from "./BillTo";
 import InvoiceInfoForm from "./InvoiceInfoForm";
+import ItemsInForm from "./ItemsInForm";
 
 const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
   props
@@ -13,6 +14,7 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<NewInvoice>();
 
@@ -39,6 +41,12 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
           darkMode={props.darkMode}
           errors={errors}
         />
+        <ItemsInForm
+          register={register}
+          darkMode={props.darkMode}
+          errors={errors}
+          control={control}
+        ></ItemsInForm>
       </Card>
     </Backdrop>
   );
