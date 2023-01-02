@@ -20,13 +20,17 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
   const { darkMode } = props;
   const [items, setItems] = useState<Item[]>([]);
 
+  const addItem = () => {
+    setItems([...items, { name: "", quantity: 0, price: 0, total: 0 }]);
+  };
+
   return (
     <Main>
       <Title>Item List</Title>
       <MobileList>
         {items.map((item, index) => (
-          <ItemElement key={item.name}>
-            <Label htmlFor={`item.name` + index}></Label>
+          <ItemElement key={index}>
+            <Label htmlFor={`item.name` + index}>Item Name</Label>
             <Controller
               render={(props) => (
                 <NameInput
@@ -74,9 +78,7 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
               </PropertyBox>
               <PropertyBox style={{ height: "73px", justifyContent: "center" }}>
                 <Label style={{ marginBottom: "auto" }}>Total</Label>
-                <TotalItemPrice style={{ margin: "auto" }}>
-                  152.00
-                </TotalItemPrice>
+                <TotalItemPrice style={{ margin: "auto" }}></TotalItemPrice>
               </PropertyBox>
               <DeleteBox>
                 <Trash onClick={() => {}} />
@@ -86,7 +88,9 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
           </ItemElement>
         ))}
       </MobileList>
-      <AddItem dark={props.darkMode}>+ Add New Item</AddItem>
+      <AddItem dark={props.darkMode} onClick={addItem}>
+        + Add New Item
+      </AddItem>
     </Main>
   );
 };
@@ -203,7 +207,7 @@ const AddItem = styled.button(
     line-height: 15px;
     letter-spacing: -0.25px;
     color: ${props.dark ? "var(--Gray)" : "#7E88C3"};
-    background-color: ${props.dark ? "var(--darkGray)" : "#F9FAFE"};
+    background-color: ${props.dark ? "var(--darkGray)" : ""};
     margin-top: 24px;
     border: none;
     border-radius: 24px;

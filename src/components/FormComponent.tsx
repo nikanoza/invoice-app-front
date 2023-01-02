@@ -47,6 +47,12 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
           errors={errors}
           control={control}
         ></ItemsInForm>
+        <Gradient />
+        <Controls dark={props.darkMode}>
+          <Discard dark={props.darkMode}>Discard</Discard>
+          <Draft dark={props.darkMode}>Save as Draft</Draft>
+          <Save>Save & Send</Save>
+        </Controls>
       </Card>
     </Backdrop>
   );
@@ -113,4 +119,57 @@ const FormSection = styled.h2`
   letter-spacing: -0.25px;
   color: var(--Violet);
   margin-top: 24px;
+`;
+
+const Gradient = styled.div`
+  margin-top: 24px;
+  width: 100%;
+  height: 64px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.0001) 0%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+`;
+
+const Controls = styled.div(
+  (props: StyledComponentsProps) => css`
+    width: 100%;
+    height: 91px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 7px;
+    background-color: ${props.dark ? "var(--darkBlue)" : "white"};
+  `
+);
+
+const Button = styled.button`
+  padding: 16px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  outline: none;
+  border: none;
+  border-radius: 24px;
+`;
+
+const Discard = styled(Button)(
+  (props: StyledComponentsProps) => css`
+    color: ${props.dark ? "var(--lightGray)" : "var(--Sky)"};
+    background-color: ${props.dark ? "var(--darkGray)" : "#F9FAFE"};
+  `
+);
+
+const Draft = styled(Button)(
+  (props: StyledComponentsProps) => css`
+    color: ${props.dark ? "var(--Gray)" : "var(--Sky)"};
+    background-color: var(--HeaderBackground);
+  `
+);
+
+const Save = styled(Button)`
+  color: white;
+  background-color: var(--Violet);
 `;
