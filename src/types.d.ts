@@ -1,18 +1,18 @@
-export type Address = {
+export interface Address {
   street: string;
   city: string;
   postCode: string;
   country: string;
-};
+}
 
-export type Item = {
+export interface Item {
   name: string;
   quantity: number;
   price: number;
   total: number;
-};
+}
 
-export type NewInvoice = {
+export interface NewInvoice {
   createdAt: string;
   paymentDue: string;
   description: string;
@@ -24,7 +24,7 @@ export type NewInvoice = {
   clientAddress: Address;
   items: Item[];
   total: number;
-};
+}
 
 export interface InvoiceType extends NewInvoice {
   id: string;

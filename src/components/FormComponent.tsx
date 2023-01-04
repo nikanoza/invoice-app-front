@@ -21,32 +21,38 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
   return (
     <Backdrop>
       <Card dark={props.darkMode}>
-        <ReturnBox>
-          <ArrowLeft />
-          <CloseModal>
-            <Text dark={props.darkMode}>Go Back</Text>
-          </CloseModal>
-        </ReturnBox>
-        <Title dark={props.darkMode}>{props.edit ? "" : "New Invoice"}</Title>
-        <FormSection>Bill From</FormSection>
-        <BillFrom
-          register={register}
-          darkMode={props.darkMode}
-          errors={errors}
-        />
-        <FormSection style={{ marginTop: "16px" }}>Bill To</FormSection>
-        <BillTo register={register} darkMode={props.darkMode} errors={errors} />
-        <InvoiceInfoForm
-          register={register}
-          darkMode={props.darkMode}
-          errors={errors}
-        />
-        <ItemsInForm
-          register={register}
-          darkMode={props.darkMode}
-          errors={errors}
-          control={control}
-        ></ItemsInForm>
+        <PaddingBox>
+          <ReturnBox>
+            <ArrowLeft />
+            <CloseModal>
+              <Text dark={props.darkMode}>Go Back</Text>
+            </CloseModal>
+          </ReturnBox>
+          <Title dark={props.darkMode}>{props.edit ? "" : "New Invoice"}</Title>
+          <FormSection>Bill From</FormSection>
+          <BillFrom
+            register={register}
+            darkMode={props.darkMode}
+            errors={errors}
+          />
+          <FormSection style={{ marginTop: "16px" }}>Bill To</FormSection>
+          <BillTo
+            register={register}
+            darkMode={props.darkMode}
+            errors={errors}
+          />
+          <InvoiceInfoForm
+            register={register}
+            darkMode={props.darkMode}
+            errors={errors}
+          />
+          <ItemsInForm
+            register={register}
+            darkMode={props.darkMode}
+            errors={errors}
+            control={control}
+          ></ItemsInForm>
+        </PaddingBox>
         <Gradient />
         <Controls dark={props.darkMode}>
           <Discard dark={props.darkMode}>Discard</Discard>
@@ -64,7 +70,6 @@ const Card = styled.div(
   (props: StyledComponentsProps) => css`
     width: 100%;
     height: 100%;
-    padding: 94px 24px 0px 24px;
     background-color: ${props.dark ? "var(--SemiDark)" : "var(--Light)"};
     overflow: auto;
   `
@@ -172,4 +177,8 @@ const Draft = styled(Button)(
 const Save = styled(Button)`
   color: white;
   background-color: var(--Violet);
+`;
+
+const PaddingBox = styled.div`
+  padding: 94px 24px 0px 24px;
 `;
