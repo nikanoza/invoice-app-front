@@ -18,6 +18,7 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
     handleSubmit,
     control,
     formState: { errors },
+    setValue,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
@@ -53,6 +54,7 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
             register={register}
             darkMode={props.darkMode}
             errors={errors}
+            setValue={setValue}
           />
           <ItemsInForm
             register={register}

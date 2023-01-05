@@ -18,7 +18,7 @@ const BillFrom: React.FC<ComponentProps> = (props) => {
         dark={props.darkMode}
         type="text"
         id="sender-address-street"
-        {...props.register("clientAddress.street")}
+        {...props.register("senderAddress.street")}
       />
       <Error>
         {(props.errors.senderAddress?.street &&

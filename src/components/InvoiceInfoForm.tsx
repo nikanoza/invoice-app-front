@@ -1,4 +1,8 @@
-import { FieldError, FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import {
+  FieldErrorsImpl,
+  UseFormRegister,
+  UseFormSetValue,
+} from "react-hook-form";
 import { FormValues } from "schema";
 import styled, { css } from "styled-components";
 import { StyledComponentsProps } from "types";
@@ -7,6 +11,7 @@ type ComponentProps = {
   register: UseFormRegister<FormValues>;
   darkMode: boolean;
   errors: Partial<FieldErrorsImpl<FormValues>>;
+  setValue: UseFormSetValue<FormValues>;
 };
 
 const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
@@ -23,7 +28,6 @@ const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
           />
         </WrapperBox>
         <Error>
-          {" "}
           {(props.errors.createdAt && props.errors.createdAt.message) || ""}
         </Error>
         <WrapperBox>
@@ -31,8 +35,10 @@ const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
           <Select
             id="payment-terms"
             dark={props.darkMode}
-            {...props.register("paymentTerms")}
             defaultValue={1}
+            onChange={(e) => {
+              props.setValue("paymentTerms", +e.currentTarget.value);
+            }}
           >
             <option value={1}>Net 1 Day</option>
             <option value={7}>Net 7 Day</option>

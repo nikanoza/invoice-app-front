@@ -88,7 +88,7 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
           </ItemElement>
         ))}
       </MobileList>
-      <AddItem dark={props.darkMode} onClick={addItem}>
+      <AddItem dark={props.darkMode} onClick={addItem} type="button">
         + Add New Item
       </AddItem>
     </Main>
