@@ -1,11 +1,12 @@
-import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import { FormValues } from "schema";
 import styled, { css } from "styled-components";
-import { NewInvoice, StyledComponentsProps } from "types";
+import { StyledComponentsProps } from "types";
 
 type ComponentProps = {
-  register: UseFormRegister<NewInvoice>;
+  register: UseFormRegister<FormValues>;
   darkMode: boolean;
-  errors: Partial<FieldErrorsImpl<NewInvoice>>;
+  errors: Partial<FieldErrorsImpl<FormValues>>;
 };
 
 const BillTo: React.FC<ComponentProps> = (props) => {
@@ -19,7 +20,7 @@ const BillTo: React.FC<ComponentProps> = (props) => {
         {...props.register("clientName")}
       />
       <Error>
-        {props.errors.clientName && props.errors.clientName.message}
+        {(props.errors.clientName && props.errors.clientName.message) || ""}
       </Error>
       <Label htmlFor="client-email">Client’s Email</Label>
       <EmailInput
@@ -29,7 +30,7 @@ const BillTo: React.FC<ComponentProps> = (props) => {
         {...props.register("clientEmail")}
       />
       <Error>
-        {props.errors.clientEmail && props.errors.clientEmail.message}
+        {(props.errors.clientEmail && props.errors.clientEmail.message) || ""}
       </Error>
       <Label htmlFor="client-address-street">Street Address</Label>
       <AddressInput
@@ -40,7 +41,7 @@ const BillTo: React.FC<ComponentProps> = (props) => {
       />
       <Error>
         {(props.errors.clientAddress?.street &&
-          props.errors.clientAddress.street.message) ||
+          props.errors.clientAddress?.street.message) ||
           ""}
       </Error>
       <Wrapper>
@@ -67,12 +68,12 @@ const BillTo: React.FC<ComponentProps> = (props) => {
         <Error>
           <p>
             {(props.errors.clientAddress?.city &&
-              props.errors.clientAddress.city.message) ||
+              props.errors.clientAddress?.city.message) ||
               ""}
           </p>
           <p>
             {(props.errors.clientAddress?.postCode &&
-              props.errors.clientAddress.postCode.message) ||
+              props.errors.clientAddress?.postCode.message) ||
               ""}
           </p>
         </Error>
@@ -85,7 +86,7 @@ const BillTo: React.FC<ComponentProps> = (props) => {
         />
         <Error>
           {(props.errors.clientAddress?.country &&
-            props.errors.clientAddress.country.message) ||
+            props.errors.clientAddress?.country.message) ||
             ""}
         </Error>
       </Wrapper>

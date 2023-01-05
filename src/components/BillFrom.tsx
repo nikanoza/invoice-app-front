@@ -1,12 +1,13 @@
 import React from "react";
 import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import { FormValues } from "schema";
 import styled, { css } from "styled-components";
-import { NewInvoice, StyledComponentsProps } from "types";
+import { StyledComponentsProps } from "types";
 
 type ComponentProps = {
-  register: UseFormRegister<NewInvoice>;
+  register: UseFormRegister<FormValues>;
   darkMode: boolean;
-  errors: Partial<FieldErrorsImpl<NewInvoice>>;
+  errors: Partial<FieldErrorsImpl<FormValues>>;
 };
 
 const BillFrom: React.FC<ComponentProps> = (props) => {

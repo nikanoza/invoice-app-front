@@ -1,19 +1,20 @@
 import { useState } from "react";
 import {
-  FieldErrorsImpl,
   UseFormRegister,
   Controller,
   Control,
+  FieldErrorsImpl,
 } from "react-hook-form";
+import { FormValues } from "schema";
 import styled, { css } from "styled-components";
 import { Trash } from "svg";
-import { NewInvoice, Item, StyledComponentsProps } from "types";
+import { Item, StyledComponentsProps } from "types";
 
 type ComponentProps = {
-  register: UseFormRegister<NewInvoice>;
+  register: UseFormRegister<FormValues>;
   darkMode: boolean;
-  errors: Partial<FieldErrorsImpl<NewInvoice>>;
-  control: Control<NewInvoice, any>;
+  errors: Partial<FieldErrorsImpl<FormValues>>;
+  control: Control<FormValues, any>;
 };
 
 const ItemsInForm: React.FC<ComponentProps> = (props) => {
@@ -42,7 +43,6 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
               )}
               name={`items.${index}.name`}
               control={props.control}
-              defaultValue=""
             />
             <Error></Error>
             <ItemWrapper>

@@ -1,7 +1,9 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import schema, { FormValues } from "schema";
 import styled, { css } from "styled-components";
 import { ArrowLeft } from "svg";
-import { NewInvoice, StyledComponentsProps } from "types";
+import { StyledComponentsProps } from "types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Backdrop from "./Backdrop";
 import BillFrom from "./BillFrom";
 import BillTo from "./BillTo";
@@ -16,11 +18,17 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<NewInvoice>();
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<FormValues> = async (date) => {
+    console.log(date);
+  };
 
   return (
     <Backdrop>
-      <Card dark={props.darkMode}>
+      <Card dark={props.darkMode} onSubmit={handleSubmit(onSubmit)}>
         <PaddingBox>
           <ReturnBox>
             <ArrowLeft />
@@ -55,9 +63,13 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
         </PaddingBox>
         <Gradient />
         <Controls dark={props.darkMode}>
-          <Discard dark={props.darkMode}>Discard</Discard>
-          <Draft dark={props.darkMode}>Save as Draft</Draft>
-          <Save>Save & Send</Save>
+          <Discard dark={props.darkMode} type="button">
+            Discard
+          </Discard>
+          <Draft dark={props.darkMode} type="button">
+            Save as Draft
+          </Draft>
+          <Save type="submit">Save & Send</Save>
         </Controls>
       </Card>
     </Backdrop>
@@ -66,7 +78,7 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
 
 export default FormComponent;
 
-const Card = styled.div(
+const Card = styled.form(
   (props: StyledComponentsProps) => css`
     width: 100%;
     height: 100%;

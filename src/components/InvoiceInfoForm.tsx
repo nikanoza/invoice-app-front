@@ -1,11 +1,12 @@
-import { FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, UseFormRegister } from "react-hook-form";
+import { FormValues } from "schema";
 import styled, { css } from "styled-components";
-import { NewInvoice, StyledComponentsProps } from "types";
+import { StyledComponentsProps } from "types";
 
 type ComponentProps = {
-  register: UseFormRegister<NewInvoice>;
+  register: UseFormRegister<FormValues>;
   darkMode: boolean;
-  errors: Partial<FieldErrorsImpl<NewInvoice>>;
+  errors: Partial<FieldErrorsImpl<FormValues>>;
 };
 
 const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
@@ -22,6 +23,7 @@ const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
           />
         </WrapperBox>
         <Error>
+          {" "}
           {(props.errors.createdAt && props.errors.createdAt.message) || ""}
         </Error>
         <WrapperBox>

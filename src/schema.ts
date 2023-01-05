@@ -1,35 +1,31 @@
 import * as Z from "zod";
-import { ZodTypeAny } from "zod";
 
-interface Address {
-  street: ZodTypeAny;
-  city: ZodTypeAny;
-  postCode: ZodTypeAny;
-  country: ZodTypeAny;
-  [key: string]: any;
-}
+export type Address = {
+  street: string;
+  city: string;
+  postCode: string;
+  country: string;
+};
 
-interface Item {
-  name: ZodTypeAny;
-  quantity: ZodTypeAny;
-  price: ZodTypeAny;
-  total: ZodTypeAny;
-  [key: string]: any;
-}
+export type Item = {
+  name: string;
+  quantity: number;
+  price: number;
+  total: number;
+};
 
-export interface FormValues {
-  createdAt: ZodTypeAny;
-  description: ZodTypeAny;
-  paymentTerms: ZodTypeAny;
-  clientName: ZodTypeAny;
-  clientEmail: ZodTypeAny;
+export type FormValues = {
+  createdAt: string;
+  description: string;
+  paymentTerms: number;
+  clientName: string;
+  clientEmail: string;
   senderAddress: Address;
   clientAddress: Address;
-  items: ZodTypeAny;
-  [key: string]: any;
-}
+  items: Item[];
+};
 
-const schema = Z.object<FormValues>({
+const schema = Z.object({
   createdAt: Z.string({
     required_error: "this field is required",
     invalid_type_error: "must be a string",
@@ -50,7 +46,7 @@ const schema = Z.object<FormValues>({
     required_error: "this field is required",
     invalid_type_error: "must be a string",
   }).email({ message: "must be a email format" }),
-  senderAddress: {
+  senderAddress: Z.object({
     street: Z.string({
       required_error: "this field is required",
       invalid_type_error: "must be a string",
@@ -67,8 +63,8 @@ const schema = Z.object<FormValues>({
       required_error: "this field is required",
       invalid_type_error: "must be a string",
     }),
-  },
-  clientAddress: {
+  }),
+  clientAddress: Z.object({
     street: Z.string({
       required_error: "this field is required",
       invalid_type_error: "must be a string",
@@ -85,9 +81,9 @@ const schema = Z.object<FormValues>({
       required_error: "this field is required",
       invalid_type_error: "must be a string",
     }),
-  },
+  }),
   items: Z.array(
-    Z.object<Item>({
+    Z.object({
       name: Z.string({
         required_error: "this field is required",
         invalid_type_error: "must be a string",
