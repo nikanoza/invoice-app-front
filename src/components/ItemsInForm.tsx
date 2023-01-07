@@ -61,15 +61,19 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
       <MobileList>
         {items.map((item, index) => (
           <ItemElement key={index}>
-            <Label htmlFor={`item.name` + index}>Item Name</Label>
-            <NameInput
-              type="text"
-              id={`item.name` + index}
-              dark={darkMode}
-              value={item.name}
-              onChange={(event) => nameChangeHandler(event, index)}
-            />
-            <Error></Error>
+            <NameWrapper>
+              <Label htmlFor={`item.name` + index}>Item Name</Label>
+              <NameInput
+                type="text"
+                id={`item.name` + index}
+                dark={darkMode}
+                value={item.name}
+                onChange={(event) => nameChangeHandler(event, index)}
+              />
+            </NameWrapper>
+            <MobileError>
+              <Error></Error>
+            </MobileError>
             <ItemWrapper>
               <PropertyBox>
                 <Label htmlFor={`item.quantity` + index}>Qty.</Label>
@@ -101,7 +105,9 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
                 <Trash onClick={() => removeItem(index)} />
               </DeleteBox>
             </ItemWrapper>
-            <Error></Error>
+            <MobileError>
+              <Error></Error>
+            </MobileError>
           </ItemElement>
         ))}
       </MobileList>
@@ -169,12 +175,27 @@ const MobileList = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) {
+    row-gap: 18px;
+  } ;
 `;
 
 const ItemElement = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    column-gap: 16px;
+  } ;
+`;
+
+const NameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 768px) {
+    width: 214px;
+  } ;
 `;
 
 const NameInput = styled(Input)`
@@ -187,6 +208,15 @@ const Error = styled.div`
   color: var(--error);
   font-size: 11px;
   padding-top: 4px;
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+`;
+
+const MobileError = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  } ;
 `;
 
 const ItemWrapper = styled.div`
@@ -235,5 +265,8 @@ const AddItem = styled.button(
     background-color: ${props.dark ? "var(--darkGray)" : ""};
     border: none;
     border-radius: 24px;
+    @media (min-width: 768px) {
+      margin-top: 24px;
+    }
   `
 );
