@@ -16,7 +16,6 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
     setValue,
   } = useForm<FormValues>({
@@ -57,10 +56,9 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
             setValue={setValue}
           />
           <ItemsInForm
-            register={register}
             darkMode={props.darkMode}
             errors={errors}
-            control={control}
+            setValue={setValue}
           ></ItemsInForm>
         </PaddingBox>
         <Gradient />

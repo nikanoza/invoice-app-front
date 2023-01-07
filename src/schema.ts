@@ -11,7 +11,6 @@ export type Item = {
   name: string;
   quantity: number;
   price: number;
-  total: number;
 };
 
 export type FormValues = {
@@ -93,10 +92,6 @@ const schema = Z.object({
         invalid_type_error: "must be a number",
       }),
       price: Z.number({
-        required_error: "this field is required",
-        invalid_type_error: "must be a number",
-      }),
-      total: Z.number({
         required_error: "this field is required",
         invalid_type_error: "must be a number",
       }),

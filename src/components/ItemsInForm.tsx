@@ -1,20 +1,14 @@
 import { useState } from "react";
-import {
-  UseFormRegister,
-  Controller,
-  Control,
-  FieldErrorsImpl,
-} from "react-hook-form";
-import { FormValues } from "schema";
+import { FieldErrorsImpl, UseFormSetValue } from "react-hook-form";
+import { FormValues, Item } from "schema";
 import styled, { css } from "styled-components";
 import { Trash } from "svg";
-import { Item, StyledComponentsProps } from "types";
+import { StyledComponentsProps } from "types";
 
 type ComponentProps = {
-  register: UseFormRegister<FormValues>;
   darkMode: boolean;
   errors: Partial<FieldErrorsImpl<FormValues>>;
-  control: Control<FormValues, any>;
+  setValue: UseFormSetValue<FormValues>;
 };
 
 const ItemsInForm: React.FC<ComponentProps> = (props) => {
@@ -22,7 +16,43 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
   const [items, setItems] = useState<Item[]>([]);
 
   const addItem = () => {
-    setItems([...items, { name: "", quantity: 0, price: 0, total: 0 }]);
+    setItems([...items, { name: "", quantity: 0, price: 0 }]);
+  };
+
+  const nameChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const clone = [...items];
+    clone[index].name = event.target.value;
+    setItems(clone);
+    props.setValue("items", clone);
+  };
+
+  const qtyChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const clone = [...items];
+    clone[index].quantity = +event.target.value;
+    setItems(clone);
+    props.setValue("items", clone);
+  };
+
+  const priceChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const clone = [...items];
+    clone[index].price = +event.target.value;
+    setItems(clone);
+    props.setValue("items", clone);
+  };
+
+  const removeItem = (index: number) => {
+    const clone = [...items];
+    clone.splice(index, 1);
+    setItems(clone);
   };
 
   return (
@@ -32,56 +62,43 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
         {items.map((item, index) => (
           <ItemElement key={index}>
             <Label htmlFor={`item.name` + index}>Item Name</Label>
-            <Controller
-              render={(props) => (
-                <NameInput
-                  type="text"
-                  {...props}
-                  id={`item.name` + index}
-                  dark={darkMode}
-                />
-              )}
-              name={`items.${index}.name`}
-              control={props.control}
+            <NameInput
+              type="text"
+              id={`item.name` + index}
+              dark={darkMode}
+              value={item.name}
+              onChange={(event) => nameChangeHandler(event, index)}
             />
             <Error></Error>
             <ItemWrapper>
               <PropertyBox>
                 <Label htmlFor={`item.quantity` + index}>Qty.</Label>
-                <Controller
-                  render={(props) => (
-                    <QtyInput
-                      type="number"
-                      {...props}
-                      id={`item.quantity` + index}
-                      dark={darkMode}
-                    />
-                  )}
-                  name={`items.${index}.quantity`}
-                  control={props.control}
+                <QtyInput
+                  type="number"
+                  id={`item.quantity` + index}
+                  dark={darkMode}
+                  value={item.quantity}
+                  onChange={(event) => qtyChangeHandler(event, index)}
                 />
               </PropertyBox>
               <PropertyBox>
                 <Label htmlFor={`item.price` + index}>Price</Label>
-                <Controller
-                  render={(props) => (
-                    <PriceInput
-                      type="number"
-                      {...props}
-                      id={`item.price` + index}
-                      dark={darkMode}
-                    />
-                  )}
-                  name={`items.${index}.price`}
-                  control={props.control}
+                <PriceInput
+                  type="number"
+                  id={`item.price` + index}
+                  dark={darkMode}
+                  value={item.price}
+                  onChange={(event) => priceChangeHandler(event, index)}
                 />
               </PropertyBox>
               <PropertyBox style={{ height: "73px", justifyContent: "center" }}>
                 <Label style={{ marginBottom: "auto" }}>Total</Label>
-                <TotalItemPrice style={{ margin: "auto" }}></TotalItemPrice>
+                <TotalItemPrice style={{ margin: "auto" }}>
+                  {(item.price * item.quantity).toFixed(2)}
+                </TotalItemPrice>
               </PropertyBox>
               <DeleteBox>
-                <Trash onClick={() => {}} />
+                <Trash onClick={() => removeItem(index)} />
               </DeleteBox>
             </ItemWrapper>
             <Error></Error>
