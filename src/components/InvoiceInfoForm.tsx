@@ -118,6 +118,7 @@ const Error = styled.div`
   min-height: 24px;
   color: var(--error);
   font-size: 11px;
+  padding-top: 4px;
 `;
 
 const Select = styled.select(

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FieldErrorsImpl, UseFormSetValue } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, UseFormSetValue } from "react-hook-form";
 import { FormValues, Item } from "schema";
 import styled, { css } from "styled-components";
 import { Trash } from "svg";
@@ -74,7 +74,7 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
               <PropertyBox>
                 <Label htmlFor={`item.quantity` + index}>Qty.</Label>
                 <QtyInput
-                  type="number"
+                  type="text"
                   id={`item.quantity` + index}
                   dark={darkMode}
                   value={item.quantity}
@@ -84,7 +84,7 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
               <PropertyBox>
                 <Label htmlFor={`item.price` + index}>Price</Label>
                 <PriceInput
-                  type="number"
+                  type="text"
                   id={`item.price` + index}
                   dark={darkMode}
                   value={item.price}
@@ -105,6 +105,13 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
           </ItemElement>
         ))}
       </MobileList>
+      <Error>
+        {props.errors.items && items.length === 0
+          ? "Minimum 1 item is required"
+          : props.errors.items
+          ? "All items properties is required; price and quantity can not be zero"
+          : ""}
+      </Error>
       <AddItem dark={props.darkMode} onClick={addItem} type="button">
         + Add New Item
       </AddItem>
@@ -179,6 +186,7 @@ const Error = styled.div`
   min-height: 24px;
   color: var(--error);
   font-size: 11px;
+  padding-top: 4px;
 `;
 
 const ItemWrapper = styled.div`
@@ -225,7 +233,6 @@ const AddItem = styled.button(
     letter-spacing: -0.25px;
     color: ${props.dark ? "var(--Gray)" : "#7E88C3"};
     background-color: ${props.dark ? "var(--darkGray)" : ""};
-    margin-top: 24px;
     border: none;
     border-radius: 24px;
   `

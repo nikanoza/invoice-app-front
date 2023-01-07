@@ -69,7 +69,14 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
           <Draft dark={props.darkMode} type="button">
             Save as Draft
           </Draft>
-          <Save type="submit">Save & Send</Save>
+          <Save
+            type="submit"
+            onClick={() => {
+              console.log(errors.items);
+            }}
+          >
+            Save & Send
+          </Save>
         </Controls>
       </Card>
     </Backdrop>
