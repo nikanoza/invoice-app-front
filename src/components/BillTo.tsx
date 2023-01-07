@@ -65,6 +65,38 @@ const BillTo: React.FC<ComponentProps> = (props) => {
             />
           </CityBox>
         </CityWrapper>
+        <MobileError>
+          <Error>
+            <p>
+              {(props.errors.clientAddress?.city &&
+                props.errors.clientAddress?.city.message) ||
+                ""}
+            </p>
+            <p>
+              {(props.errors.clientAddress?.postCode &&
+                props.errors.clientAddress?.postCode.message) ||
+                ""}
+            </p>
+          </Error>
+        </MobileError>
+        <CityBox>
+          <Label htmlFor="client-address-country">Country</Label>
+          <CountryInput
+            dark={props.darkMode}
+            id="client-address-country"
+            type="text"
+            {...props.register("clientAddress.country")}
+          />
+        </CityBox>
+        <MobileError>
+          <Error>
+            {(props.errors.clientAddress?.country &&
+              props.errors.clientAddress?.country.message) ||
+              ""}
+          </Error>
+        </MobileError>
+      </Wrapper>
+      <DesktopError>
         <Error>
           <p>
             {(props.errors.clientAddress?.city &&
@@ -76,20 +108,13 @@ const BillTo: React.FC<ComponentProps> = (props) => {
               props.errors.clientAddress?.postCode.message) ||
               ""}
           </p>
+          <p>
+            {(props.errors.clientAddress?.country &&
+              props.errors.clientAddress?.country.message) ||
+              ""}
+          </p>
         </Error>
-        <Label htmlFor="client-address-country">Country</Label>
-        <CountryInput
-          dark={props.darkMode}
-          id="client-address-country"
-          type="text"
-          {...props.register("clientAddress.country")}
-        />
-        <Error>
-          {(props.errors.clientAddress?.country &&
-            props.errors.clientAddress?.country.message) ||
-            ""}
-        </Error>
-      </Wrapper>
+      </DesktopError>
     </Main>
   );
 };
@@ -140,6 +165,21 @@ const Error = styled.div`
   color: var(--error);
   font-size: 11px;
   padding-top: 4px;
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+`;
+
+const MobileError = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  } ;
+`;
+const DesktopError = styled.div`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  } ;
 `;
 
 const EmailInput = styled(Input)`
@@ -154,6 +194,10 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    column-gap: 24px;
+  } ;
 `;
 
 const CityWrapper = styled.div`
@@ -161,11 +205,18 @@ const CityWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media (min-width: 768px) {
+    width: fit-content;
+    column-gap: 24px;
+  } ;
 `;
 
 const CityBox = styled.div`
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) {
+    width: 152px;
+  } ;
 `;
 
 const CityInput = styled(Input)`
@@ -178,4 +229,7 @@ const PostCodeInput = styled(Input)`
 
 const CountryInput = styled(Input)`
   width: 100%;
+  @media (min-width: 768px) {
+    width: 152px;
+  }
 `;

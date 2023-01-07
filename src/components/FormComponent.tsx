@@ -10,9 +10,11 @@ import BillTo from "./BillTo";
 import InvoiceInfoForm from "./InvoiceInfoForm";
 import ItemsInForm from "./ItemsInForm";
 
-const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
-  props
-) => {
+const FormComponent: React.FC<{
+  darkMode: boolean;
+  edit: boolean;
+  close: () => void;
+}> = (props) => {
   const {
     register,
     handleSubmit,
@@ -32,7 +34,7 @@ const FormComponent: React.FC<{ darkMode: boolean; edit: boolean }> = (
         <PaddingBox>
           <ReturnBox>
             <ArrowLeft />
-            <CloseModal>
+            <CloseModal type="button" onClick={() => props.close()}>
               <Text dark={props.darkMode}>Go Back</Text>
             </CloseModal>
           </ReturnBox>
@@ -88,9 +90,13 @@ export default FormComponent;
 const Card = styled.form(
   (props: StyledComponentsProps) => css`
     width: 100%;
+    max-width: 616px;
     height: 100%;
     background-color: ${props.dark ? "var(--SemiDark)" : "var(--Light)"};
     overflow: auto;
+    @media (min-width: 768px) {
+      overflow: visible;
+    }
   `
 );
 
@@ -99,9 +105,8 @@ const ReturnBox = styled.div`
   align-items: center;
   column-gap: 23.66px;
   align-self: flex-start;
-  @media (min-width: 1440px) {
-    align-self: center;
-    margin-right: 625px;
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
@@ -133,6 +138,9 @@ const Title = styled.h1(
     letter-spacing: -0.5px;
     color: ${props.dark ? "white" : "var(--Dark)"};
     margin-top: 24px;
+    @media (min-width: 768px) {
+      margin-top: 10px;
+    }
   `
 );
 
@@ -200,4 +208,9 @@ const Save = styled(Button)`
 
 const PaddingBox = styled.div`
   padding: 94px 24px 0px 24px;
+  @media (min-width: 768px) {
+    overflow: auto;
+    height: calc(100% - 80px - 110px);
+    padding: 94px 56px 0px 56px;
+  }
 `;

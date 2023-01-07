@@ -27,9 +27,11 @@ const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
             {...props.register("createdAt")}
           />
         </WrapperBox>
-        <Error>
-          {(props.errors.createdAt && props.errors.createdAt.message) || ""}
-        </Error>
+        <MobileError>
+          <Error>
+            {(props.errors.createdAt && props.errors.createdAt.message) || ""}
+          </Error>
+        </MobileError>
         <WrapperBox>
           <Label htmlFor="payment-terms">Payment Terms</Label>
           <Select
@@ -47,6 +49,11 @@ const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
           </Select>
         </WrapperBox>
       </Wrapper>
+      <DesktopError>
+        <Error>
+          {(props.errors.createdAt && props.errors.createdAt.message) || ""}
+        </Error>
+      </DesktopError>
       <Error></Error>
       <Label htmlFor="description-input">Project Description</Label>
       <Description
@@ -100,12 +107,19 @@ const Input = styled.input(
 
 const DateInput = styled(Input)`
   width: 100%;
+  @media (min-width: 768px) {
+    width: 240px;
+  }
 `;
 
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    column-gap: 24px;
+  } ;
 `;
 
 const WrapperBox = styled.div`
@@ -119,6 +133,21 @@ const Error = styled.div`
   color: var(--error);
   font-size: 11px;
   padding-top: 4px;
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+`;
+
+const MobileError = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  } ;
+`;
+const DesktopError = styled.div`
+  display: none;
+  @media (min-width: 768px) {
+    display: block;
+  } ;
 `;
 
 const Select = styled.select(
@@ -136,6 +165,9 @@ const Select = styled.select(
     border: ${props.dark
       ? "1px solid var(--darkGray)"
       : "1px solid var(--lightGray)"};
+    @media (min-width: 768px) {
+      width: 240px;
+    } ;
   `
 );
 

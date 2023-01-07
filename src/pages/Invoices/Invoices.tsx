@@ -13,9 +13,16 @@ const Invoices = (props: PropsType) => {
   const [filerBy, setFilterBy] = useState<"draft" | "pending" | "paid" | "all">(
     "all"
   );
+  const [showForm, setShowForm] = useState<boolean>(false);
   return (
     <Wrapper>
-      <FormComponent darkMode={props.darkMode} edit={false} />
+      {showForm ? (
+        <FormComponent
+          darkMode={props.darkMode}
+          edit={false}
+          close={() => setShowForm(false)}
+        />
+      ) : null}
       <Controls>
         <div>
           <Title dark={props.darkMode}>Invoices</Title>
@@ -35,7 +42,9 @@ const Invoices = (props: PropsType) => {
             <Plus />
           </Circle>
           <ButtonTextMobile>New</ButtonTextMobile>
-          <ButtonTextDesktop>New Invoice</ButtonTextDesktop>
+          <ButtonTextDesktop onClick={() => setShowForm(true)}>
+            New Invoice
+          </ButtonTextDesktop>
         </NewInvoiceBtn>
       </Controls>
       <InvoicesList>
@@ -55,12 +64,12 @@ export default Invoices;
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: 32px 24px 105px 24px;
+  padding: 104px 24px 105px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   @media (min-width: 768px) {
-    padding: 56px 48px 173px 48px;
+    padding: 136px 48px 173px 48px;
   }
   @media (min-width: 1440px) {
     padding-top: 72px;
