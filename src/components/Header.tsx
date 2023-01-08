@@ -40,6 +40,9 @@ const HeaderElement = styled.header`
   align-items: center;
   z-index: 2;
   position: fixed;
+  @media (min-width: 768px) {
+    height: 80px;
+  }
   @media (min-width: 1440px) {
     width: 103px;
     height: 100vh;

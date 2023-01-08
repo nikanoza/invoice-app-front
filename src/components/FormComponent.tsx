@@ -96,6 +96,14 @@ const Card = styled.form(
     overflow: auto;
     @media (min-width: 768px) {
       overflow: visible;
+      border-radius: 0px 20px 20px 0px;
+      margin-top: 80px;
+      height: calc(100% - 80px);
+    }
+    @media (min-width: 1440px) {
+      height: 100%;
+      margin-top: 0;
+      max-width: 719px;
     }
   `
 );
@@ -162,6 +170,9 @@ const Gradient = styled.div`
     rgba(0, 0, 0, 0.0001) 0%,
     rgba(0, 0, 0, 0.1) 100%
   );
+  @media (min-width: 768px) {
+    padding-left: 117px;
+  }
 `;
 
 const Controls = styled.div(
@@ -173,6 +184,13 @@ const Controls = styled.div(
     align-items: center;
     column-gap: 7px;
     background-color: ${props.dark ? "var(--darkBlue)" : "white"};
+    @media (min-width: 768px) {
+      border-bottom-right-radius: 20px;
+      padding: 0 56px 0 56px;
+    }
+    @media (min-width: 768px) {
+      padding-left: 117px;
+    }
   `
 );
 
@@ -198,6 +216,10 @@ const Draft = styled(Button)(
   (props: StyledComponentsProps) => css`
     color: ${props.dark ? "var(--Gray)" : "var(--Sky)"};
     background-color: var(--HeaderBackground);
+    @media (min-width: 768px) {
+      margin-left: auto;
+      justify-self: flex-end;
+    }
   `
 );
 
@@ -211,6 +233,9 @@ const PaddingBox = styled.div`
   @media (min-width: 768px) {
     overflow: auto;
     height: calc(100% - 80px - 110px);
-    padding: 94px 56px 0px 56px;
+    padding: 14px 56px 0px 56px;
+  }
+  @media (min-width: 1440px) {
+    margin-left: 103px;
   }
 `;
