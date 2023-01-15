@@ -16,3 +16,7 @@ export const getInvoices = () => {
 export const addInvoice = (invoice: NewInvoice) => {
   return instance.post("/invoices", invoice);
 };
+
+export const updateInvoice = (invoice: NewInvoice, id: string) => {
+  return instance.put("/invoices/" + id, invoice);
+};

@@ -9,7 +9,10 @@ export const dateTransformer = (date: string): string => {
   return `${dueDay} ${dueMonth} ${dueYear}`;
 };
 
-export const requestBodyTransformer = (invoice: FormValues): NewInvoice => {
+export const requestBodyTransformer = (
+  invoice: FormValues,
+  status: string = "draft"
+): NewInvoice => {
   const {
     createdAt,
     description,
@@ -54,7 +57,7 @@ export const requestBodyTransformer = (invoice: FormValues): NewInvoice => {
     clientEmail,
     senderAddress,
     clientAddress,
-    status: "draft",
+    status: status,
     items: transformItems,
     total,
   };

@@ -27,6 +27,8 @@ const Invoice = (props: PropsType) => {
           close={() => setShowForm(false)}
           setInvoices={props.setInvoices}
           invoice={item}
+          setInvoice={setInvoice}
+          invoices={props.invoices}
         />
       ) : null}
       <InvoiceTop>

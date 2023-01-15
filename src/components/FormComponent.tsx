@@ -10,7 +10,7 @@ import BillTo from "./BillTo";
 import InvoiceInfoForm from "./InvoiceInfoForm";
 import ItemsInForm from "./ItemsInForm";
 import { requestBodyTransformer } from "helpers";
-import { addInvoice } from "services";
+import { addInvoice, updateInvoice } from "services";
 
 const FormComponent: React.FC<{
   darkMode: boolean;
@@ -18,24 +18,63 @@ const FormComponent: React.FC<{
   close: () => void;
   setInvoices: React.Dispatch<React.SetStateAction<InvoiceType[]>>;
   invoice?: InvoiceType;
+  setInvoice?: React.Dispatch<React.SetStateAction<InvoiceType | null>>;
+  invoices?: InvoiceType[];
 }> = (props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
+    getValues,
     setValue,
+    trigger,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: props.edit ? props.invoice : {},
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const newInvoice = requestBodyTransformer(data);
-    try {
-      const response = await addInvoice(newInvoice);
-      props.setInvoices((state) => [...state, response.data]);
-      props.close();
-    } catch (error) {}
+    const newInvoice = requestBodyTransformer(
+      data,
+      props.edit ? props.invoice?.status : "pending"
+    );
+    if (!props.edit) {
+      try {
+        const response = await addInvoice(newInvoice);
+        props.setInvoices((state) => [...state, response.data]);
+        props.close();
+      } catch (error) {}
+    } else {
+      await updateInvoice(newInvoice, props.invoice?.id || "");
+      const clone = props.invoices?.slice();
+      const invoiceIndex = clone?.findIndex(
+        (invoice) => invoice.id === props.invoice?.id
+      );
+      if (clone) {
+        clone[invoiceIndex || 1] = {
+          ...newInvoice,
+          id: props.invoice?.id || "",
+        };
+        props.setInvoices(clone);
+        if (props.setInvoice) {
+          props.setInvoice({ ...newInvoice, id: props.invoice?.id || "" });
+        }
+        props.close();
+      }
+    }
+  };
+
+  const saveAsDraft = async () => {
+    const result = await trigger();
+    if (result) {
+      const data = getValues();
+      const newInvoice = requestBodyTransformer(data, "draft");
+      try {
+        const response = await addInvoice(newInvoice);
+        props.setInvoices((state) => [...state, response.data]);
+        props.close();
+      } catch (error) {}
+    }
   };
 
   const closeHandler = () => {
@@ -93,13 +132,25 @@ const FormComponent: React.FC<{
         </PaddingBox>
         <Gradient />
         <Controls dark={props.darkMode}>
-          <Discard dark={props.darkMode} type="button" onClick={closeHandler}>
-            Discard
+          <Discard
+            dark={props.darkMode}
+            type="button"
+            onClick={closeHandler}
+            edit={props.edit}
+          >
+            {props.edit ? "Cancel" : "Discard"}
           </Discard>
-          <Draft dark={props.darkMode} type="button">
+          <Draft
+            dark={props.darkMode}
+            type="button"
+            edit={props.edit}
+            onClick={saveAsDraft}
+          >
             Save as Draft
           </Draft>
-          <Save type="submit">Save & Send</Save>
+          <Save type="submit">
+            {props.edit ? "Save Changes" : "Save & Send"}
+          </Save>
         </Controls>
       </Card>
     </Backdrop>
@@ -231,6 +282,10 @@ const Discard = styled(Button)(
   (props: StyledComponentsProps) => css`
     color: ${props.dark ? "var(--lightGray)" : "var(--Sky)"};
     background-color: ${props.dark ? "var(--darkGray)" : "#F9FAFE"};
+    @media (min-width: 768px) {
+      margin-left: ${props.edit ? "auto" : "0"};
+      justify-self: ${props.edit ? "flex-end" : "flex-start"};
+    }
   `
 );
 
@@ -238,6 +293,7 @@ const Draft = styled(Button)(
   (props: StyledComponentsProps) => css`
     color: ${props.dark ? "var(--Gray)" : "var(--Sky)"};
     background-color: var(--HeaderBackground);
+    display: ${props.edit ? "none" : "block"};
     @media (min-width: 768px) {
       margin-left: auto;
       justify-self: flex-end;
