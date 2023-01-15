@@ -2,18 +2,21 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import schema, { FormValues } from "schema";
 import styled, { css } from "styled-components";
 import { ArrowLeft } from "svg";
-import { StyledComponentsProps } from "types";
+import { InvoiceType, StyledComponentsProps } from "types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Backdrop from "./Backdrop";
 import BillFrom from "./BillFrom";
 import BillTo from "./BillTo";
 import InvoiceInfoForm from "./InvoiceInfoForm";
 import ItemsInForm from "./ItemsInForm";
+import { requestBodyTransformer } from "helpers";
+import { addInvoice } from "services";
 
 const FormComponent: React.FC<{
   darkMode: boolean;
   edit: boolean;
   close: () => void;
+  setInvoices: React.Dispatch<React.SetStateAction<InvoiceType[]>>;
 }> = (props) => {
   const {
     register,
@@ -24,8 +27,13 @@ const FormComponent: React.FC<{
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = async (date) => {
-    console.log(date);
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const newInvoice = requestBodyTransformer(data);
+    try {
+      const response = await addInvoice(newInvoice);
+      props.setInvoices((state) => [...state, response.data]);
+      props.close();
+    } catch (error) {}
   };
 
   const closeHandler = () => {
@@ -75,14 +83,7 @@ const FormComponent: React.FC<{
           <Draft dark={props.darkMode} type="button">
             Save as Draft
           </Draft>
-          <Save
-            type="submit"
-            onClick={() => {
-              console.log(errors.items);
-            }}
-          >
-            Save & Send
-          </Save>
+          <Save type="submit">Save & Send</Save>
         </Controls>
       </Card>
     </Backdrop>

@@ -7,6 +7,7 @@ import { InvoiceType, StyledComponentsProps } from "types";
 type PropsType = {
   darkMode: boolean;
   invoices: InvoiceType[];
+  setInvoices: React.Dispatch<React.SetStateAction<InvoiceType[]>>;
 };
 
 const Invoices = (props: PropsType) => {
@@ -21,6 +22,7 @@ const Invoices = (props: PropsType) => {
           darkMode={props.darkMode}
           edit={false}
           close={() => setShowForm(false)}
+          setInvoices={props.setInvoices}
         />
       ) : null}
       <Controls>
@@ -41,7 +43,9 @@ const Invoices = (props: PropsType) => {
           <Circle>
             <Plus />
           </Circle>
-          <ButtonTextMobile>New</ButtonTextMobile>
+          <ButtonTextMobile onClick={() => setShowForm(true)}>
+            New
+          </ButtonTextMobile>
           <ButtonTextDesktop onClick={() => setShowForm(true)}>
             New Invoice
           </ButtonTextDesktop>

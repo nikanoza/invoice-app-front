@@ -29,7 +29,13 @@ function App() {
         <Route path="/" element={<Navigate to="/invoices" replace />} />
         <Route
           path="/invoices"
-          element={<Invoices darkMode={darkMode} invoices={invoices} />}
+          element={
+            <Invoices
+              darkMode={darkMode}
+              invoices={invoices}
+              setInvoices={setInvoices}
+            />
+          }
         />
         <Route
           path="/invoices/:id"

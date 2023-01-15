@@ -55,6 +55,7 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
     const clone = [...items];
     clone.splice(index, 1);
     setItems(clone);
+    props.setValue("items", clone);
   };
 
   return (

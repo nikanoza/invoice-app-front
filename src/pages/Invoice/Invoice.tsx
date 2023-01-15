@@ -90,7 +90,7 @@ const InvoiceElement = styled.main`
 const InvoiceTop = styled.div`
   width: 100%;
   height: 100%;
-  padding: 32px 24px 0 24px;
+  padding: 104px 24px 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
