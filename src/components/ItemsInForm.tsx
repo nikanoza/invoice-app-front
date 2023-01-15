@@ -9,11 +9,12 @@ type ComponentProps = {
   darkMode: boolean;
   errors: Partial<FieldErrorsImpl<FormValues>>;
   setValue: UseFormSetValue<FormValues>;
+  items: Item[];
 };
 
 const ItemsInForm: React.FC<ComponentProps> = (props) => {
   const { darkMode } = props;
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<Item[]>(props.items);
 
   const addItem = () => {
     const clone = [...items, { name: "", quantity: 0, price: 0 }];

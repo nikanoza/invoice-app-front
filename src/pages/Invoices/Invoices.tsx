@@ -11,10 +11,25 @@ type PropsType = {
 };
 
 const Invoices = (props: PropsType) => {
-  const [filerBy, setFilterBy] = useState<"draft" | "pending" | "paid" | "all">(
-    "all"
-  );
+  const [filterBy, setFilterBy] = useState<
+    "draft" | "pending" | "paid" | "all"
+  >("all");
   const [showForm, setShowForm] = useState<boolean>(false);
+
+  const drafts = props.invoices.filter((invoice) => invoice.status === "draft");
+  const pendings = props.invoices.filter(
+    (invoice) => invoice.status === "pending"
+  );
+  const paids = props.invoices.filter((invoice) => invoice.status === "paid");
+
+  const array =
+    filterBy === "draft"
+      ? drafts
+      : filterBy === "pending"
+      ? pendings
+      : filterBy === "paid"
+      ? paids
+      : props.invoices;
   return (
     <Wrapper>
       {showForm ? (
@@ -35,7 +50,7 @@ const Invoices = (props: PropsType) => {
           </Amount>
         </div>
         <FilterSelect
-          filerBy={filerBy}
+          filerBy={filterBy}
           setFilterBy={setFilterBy}
           darkMode={props.darkMode}
         />
@@ -52,7 +67,7 @@ const Invoices = (props: PropsType) => {
         </NewInvoiceBtn>
       </Controls>
       <InvoicesList>
-        {props.invoices.map((invoice) => (
+        {array.map((invoice) => (
           <InvoiceBox
             key={invoice.id}
             invoice={invoice}

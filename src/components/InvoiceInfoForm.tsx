@@ -12,6 +12,7 @@ type ComponentProps = {
   darkMode: boolean;
   errors: Partial<FieldErrorsImpl<FormValues>>;
   setValue: UseFormSetValue<FormValues>;
+  paymentTerms?: number;
 };
 
 const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
@@ -37,7 +38,7 @@ const InvoiceInfoForm: React.FC<ComponentProps> = (props) => {
           <Select
             id="payment-terms"
             dark={props.darkMode}
-            defaultValue={1}
+            defaultValue={props.paymentTerms || 1}
             onChange={(e) => {
               props.setValue("paymentTerms", +e.currentTarget.value);
             }}

@@ -4,12 +4,15 @@ import { StyledComponentsProps } from "types";
 type PropsType = {
   darkMode: boolean;
   invoiceId: string;
+  editInvoice: () => void;
 };
 
 const Controls: React.FC<PropsType> = (props) => {
   return (
     <Main dark={props.darkMode}>
-      <Edit dark={props.darkMode}>edit</Edit>
+      <Edit dark={props.darkMode} onClick={props.editInvoice}>
+        edit
+      </Edit>
       <Delete dark={props.darkMode} color="var(--Blood)">
         delete
       </Delete>

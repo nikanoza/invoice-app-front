@@ -1,4 +1,4 @@
-import { Info } from "components";
+import { FormComponent, Info } from "components";
 import Controls from "components/Controls";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -9,15 +9,26 @@ import { InvoiceType, StyledComponentsProps } from "types";
 type PropsType = {
   darkMode: boolean;
   invoices: InvoiceType[];
+  setInvoices: React.Dispatch<React.SetStateAction<InvoiceType[]>>;
 };
 
 const Invoice = (props: PropsType) => {
   const { id } = useParams();
   const item = props.invoices.find((invoice) => invoice.id === id);
   const [invoice, setInvoice] = useState<InvoiceType | null>(item || null);
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   return (
     <InvoiceElement>
+      {showForm ? (
+        <FormComponent
+          darkMode={props.darkMode}
+          edit={true}
+          close={() => setShowForm(false)}
+          setInvoices={props.setInvoices}
+          invoice={item}
+        />
+      ) : null}
       <InvoiceTop>
         <ReturnBox>
           <ArrowLeft />
@@ -65,7 +76,11 @@ const Invoice = (props: PropsType) => {
               </Status>
             </StatusSection>
             <ControlsDesktop>
-              <Controls darkMode={props.darkMode} invoiceId={invoice?.id} />
+              <Controls
+                darkMode={props.darkMode}
+                invoiceId={invoice?.id}
+                editInvoice={() => setShowForm(true)}
+              />
             </ControlsDesktop>
           </Header>
         ) : null}
@@ -73,7 +88,11 @@ const Invoice = (props: PropsType) => {
       </InvoiceTop>
       {invoice ? (
         <ControlsMobile>
-          <Controls darkMode={props.darkMode} invoiceId={invoice?.id} />
+          <Controls
+            darkMode={props.darkMode}
+            invoiceId={invoice?.id}
+            editInvoice={() => setShowForm(true)}
+          />
         </ControlsMobile>
       ) : null}
     </InvoiceElement>

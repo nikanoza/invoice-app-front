@@ -17,6 +17,7 @@ const FormComponent: React.FC<{
   edit: boolean;
   close: () => void;
   setInvoices: React.Dispatch<React.SetStateAction<InvoiceType[]>>;
+  invoice?: InvoiceType;
 }> = (props) => {
   const {
     register,
@@ -25,6 +26,7 @@ const FormComponent: React.FC<{
     setValue,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
+    defaultValues: props.edit ? props.invoice : {},
   });
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
@@ -40,6 +42,16 @@ const FormComponent: React.FC<{
     props.close();
   };
 
+  const items = props.edit
+    ? props.invoice?.items.map((invoice) => {
+        return {
+          name: invoice.name,
+          price: invoice.price,
+          quantity: invoice.quantity,
+        };
+      })
+    : [];
+
   return (
     <Backdrop>
       <Card dark={props.darkMode} onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +62,9 @@ const FormComponent: React.FC<{
               <Text dark={props.darkMode}>Go Back</Text>
             </CloseModal>
           </ReturnBox>
-          <Title dark={props.darkMode}>{props.edit ? "" : "New Invoice"}</Title>
+          <Title dark={props.darkMode}>
+            {props.edit ? `Edit #${props.invoice?.id}` : "New Invoice"}
+          </Title>
           <FormSection>Bill From</FormSection>
           <BillFrom
             register={register}
@@ -68,11 +82,13 @@ const FormComponent: React.FC<{
             darkMode={props.darkMode}
             errors={errors}
             setValue={setValue}
+            paymentTerms={props.edit ? props.invoice?.paymentTerms : 1}
           />
           <ItemsInForm
             darkMode={props.darkMode}
             errors={errors}
             setValue={setValue}
+            items={items || []}
           ></ItemsInForm>
         </PaddingBox>
         <Gradient />

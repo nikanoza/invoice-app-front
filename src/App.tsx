@@ -39,7 +39,13 @@ function App() {
         />
         <Route
           path="/invoices/:id"
-          element={<Invoice darkMode={darkMode} invoices={invoices} />}
+          element={
+            <Invoice
+              darkMode={darkMode}
+              invoices={invoices}
+              setInvoices={setInvoices}
+            />
+          }
         />
       </Routes>
     </Main>
