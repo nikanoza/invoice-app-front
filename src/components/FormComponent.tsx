@@ -28,6 +28,10 @@ const FormComponent: React.FC<{
     console.log(date);
   };
 
+  const closeHandler = () => {
+    props.close();
+  };
+
   return (
     <Backdrop>
       <Card dark={props.darkMode} onSubmit={handleSubmit(onSubmit)}>
@@ -65,7 +69,7 @@ const FormComponent: React.FC<{
         </PaddingBox>
         <Gradient />
         <Controls dark={props.darkMode}>
-          <Discard dark={props.darkMode} type="button">
+          <Discard dark={props.darkMode} type="button" onClick={closeHandler}>
             Discard
           </Discard>
           <Draft dark={props.darkMode} type="button">
@@ -203,6 +207,7 @@ const Button = styled.button`
   outline: none;
   border: none;
   border-radius: 24px;
+  cursor: pointer;
 `;
 
 const Discard = styled(Button)(

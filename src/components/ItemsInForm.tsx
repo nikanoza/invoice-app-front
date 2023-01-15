@@ -16,7 +16,9 @@ const ItemsInForm: React.FC<ComponentProps> = (props) => {
   const [items, setItems] = useState<Item[]>([]);
 
   const addItem = () => {
-    setItems([...items, { name: "", quantity: 0, price: 0 }]);
+    const clone = [...items, { name: "", quantity: 0, price: 0 }];
+    setItems(clone);
+    props.setValue("items", clone);
   };
 
   const nameChangeHandler = (
@@ -265,6 +267,7 @@ const AddItem = styled.button(
     background-color: ${props.dark ? "var(--darkGray)" : ""};
     border: none;
     border-radius: 24px;
+    cursor: pointer;
     @media (min-width: 768px) {
       margin-top: 24px;
     }
