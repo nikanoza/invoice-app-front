@@ -143,6 +143,9 @@ const NewInvoiceBtn = styled.button`
   align-items: center;
   column-gap: 8px;
   cursor: pointer;
+  &:hover {
+    background-color: var(--VioletHover);
+  }
   @media (min-width: 768px) {
     margin-left: 40px;
     width: 150px;

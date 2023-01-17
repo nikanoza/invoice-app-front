@@ -266,10 +266,13 @@ const AddItem = styled.button(
     line-height: 15px;
     letter-spacing: -0.25px;
     color: ${props.dark ? "var(--Gray)" : "#7E88C3"};
-    background-color: ${props.dark ? "var(--darkGray)" : ""};
+    background-color: ${props.dark ? "var(--darkGray)" : "#F9FAFE"};
     border: none;
     border-radius: 24px;
     cursor: pointer;
+    &:hover {
+      background-color: ${props.dark ? "var(--darkGray)" : "var(--lightGray)"};
+    }
     @media (min-width: 768px) {
       margin-top: 24px;
     }

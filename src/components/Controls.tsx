@@ -1,5 +1,5 @@
 import { updateInvoice } from "services";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { InvoiceType, NewInvoice, StyledComponentsProps } from "types";
 
 type PropsType = {
@@ -43,12 +43,13 @@ const Controls: React.FC<PropsType> = (props) => {
 
   return (
     <Main dark={props.darkMode}>
-      <Edit dark={props.darkMode} onClick={props.editInvoice}>
+      <Edit dark={props.darkMode} onClick={props.editInvoice} hoverColor="">
         edit
       </Edit>
       <Delete
         dark={props.darkMode}
         color="var(--Blood)"
+        hoverColor="var(--BloodHover)"
         onClick={props.openDeleteModal}
       >
         delete
@@ -56,6 +57,7 @@ const Controls: React.FC<PropsType> = (props) => {
       <Mark
         dark={props.darkMode}
         color="var(--Violet)"
+        hoverColor="var(--VioletHover)"
         onClick={statusChangeHandler}
       >
         Mark as Paid
@@ -88,6 +90,7 @@ const Main = styled.main(
 type ButtonProps = {
   dark: boolean;
   color?: string;
+  hoverColor?: string;
 };
 
 const Button = styled.button`
@@ -104,26 +107,36 @@ const Button = styled.button`
   cursor: pointer;
 `;
 const Edit = styled(Button)(
-  (props: ButtonProps) => `
-  width: 73px;
-  margin-left: 24px;
-  color: ${props.dark ? "var(--lightGray)" : "var(--Sky)"};
-  background-color: ${props.dark ? "#252945" : "#F9FAFE"}
-`
+  (props: ButtonProps) => css`
+    width: 73px;
+    margin-left: 24px;
+    color: ${props.dark ? "var(--lightGray)" : "var(--Sky)"};
+    background-color: ${props.dark ? "#252945" : "#F9FAFE"};
+    &:hover {
+      background-color: ${props.dark ? "white" : "#DFE3FA"};
+      color: "var(--Sky)";
+    }
+  `
 );
 
 const Delete = styled(Button)(
-  (props: ButtonProps) => `
-  width: 89px;
-  margin-left: 8px;
-  background-color: ${props.color}
-`
+  (props: ButtonProps) => css`
+    width: 89px;
+    margin-left: 8px;
+    background-color: ${props.color};
+    &:hover {
+      background-color: ${props.hoverColor};
+    }
+  `
 );
 
 const Mark = styled(Button)(
-  (props: ButtonProps) => `
-  width: 149px;
-  margin-left: 8px;
-  background-color: ${props.color}
-`
+  (props: ButtonProps) => css`
+    width: 149px;
+    margin-left: 8px;
+    background-color: ${props.color};
+    &:hover {
+      background-color: ${props.hoverColor};
+    }
+  `
 );

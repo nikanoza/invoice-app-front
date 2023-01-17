@@ -22,4 +22,7 @@ const Svg = styled(attrs)`
   width: 13px;
   height: 16px;
   cursor: pointer;
+  &:hover path {
+    fill: var(--Blood);
+  }
 `;
