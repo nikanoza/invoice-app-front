@@ -64,6 +64,10 @@ const PopUp = styled.div(
     box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
     padding: 32px;
     background-color: ${props.dark ? "var(--darkBlue)" : "white"};
+    @media (min-width: 768px) {
+      width: 480px;
+      padding: 48px;
+    }
   `
 );
 
@@ -74,6 +78,9 @@ const ModalTitle = styled.h2(
     line-height: 32px;
     letter-spacing: -0.42px;
     color: ${props.dark ? "white" : "var(--Dark)"};
+    @media (min-width: 768px) {
+      font-size: 28px;
+    }
   `
 );
 
@@ -83,6 +90,10 @@ const Warning = styled.p`
   line-height: 22px;
   letter-spacing: -0.25px;
   color: var(--Gray);
+  margin-top: 8px;
+  @media (min-width: 768px) {
+    margin-top: 13px;
+  }
 `;
 
 const Controls = styled.div`
