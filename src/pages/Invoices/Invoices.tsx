@@ -185,5 +185,8 @@ const InvoicesList = styled.ul`
   align-items: center;
   row-gap: 16px;
   margin-top: 32px;
-  width: 100%;
+  width: fit-content;
+  max-height: 650px;
+  overflow-y: auto;
+  padding-right: 30px;
 `;

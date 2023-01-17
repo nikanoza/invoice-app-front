@@ -1,14 +1,46 @@
+import { updateInvoice } from "services";
 import styled from "styled-components";
-import { StyledComponentsProps } from "types";
+import { InvoiceType, NewInvoice, StyledComponentsProps } from "types";
 
 type PropsType = {
   darkMode: boolean;
   invoiceId: string;
   editInvoice: () => void;
   openDeleteModal: () => void;
+  invoices: InvoiceType[];
+  setInvoices: React.Dispatch<React.SetStateAction<InvoiceType[]>>;
+  setInvoice: React.Dispatch<React.SetStateAction<InvoiceType | null>>;
 };
 
 const Controls: React.FC<PropsType> = (props) => {
+  const statusChangeHandler = async () => {
+    const clone = [...props.invoices];
+    const invoiceIndex = clone.findIndex(
+      (invoice) => invoice.id === props.invoiceId
+    );
+    clone[invoiceIndex].status = "paid";
+    try {
+      const invoice = clone[invoiceIndex];
+      const updatedInvoice: NewInvoice = {
+        createdAt: invoice.createdAt,
+        paymentDue: invoice.paymentDue,
+        description: invoice.description,
+        paymentTerms: invoice.paymentTerms,
+        clientName: invoice.clientName,
+        clientEmail: invoice.clientEmail,
+        status: invoice.status,
+        senderAddress: invoice.senderAddress,
+        clientAddress: invoice.clientAddress,
+        items: invoice.items,
+        total: invoice.total,
+      };
+
+      await updateInvoice(updatedInvoice, props.invoiceId);
+      props.setInvoices(clone);
+      props.setInvoice(clone[invoiceIndex]);
+    } catch (error) {}
+  };
+
   return (
     <Main dark={props.darkMode}>
       <Edit dark={props.darkMode} onClick={props.editInvoice}>
@@ -21,7 +53,11 @@ const Controls: React.FC<PropsType> = (props) => {
       >
         delete
       </Delete>
-      <Mark dark={props.darkMode} color="var(--Violet)">
+      <Mark
+        dark={props.darkMode}
+        color="var(--Violet)"
+        onClick={statusChangeHandler}
+      >
         Mark as Paid
       </Mark>
     </Main>

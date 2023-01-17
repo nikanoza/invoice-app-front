@@ -93,6 +93,9 @@ const Invoice = (props: PropsType) => {
                 invoiceId={invoice?.id}
                 editInvoice={() => setShowForm(true)}
                 openDeleteModal={() => setShowDeleteModal(true)}
+                invoices={props.invoices}
+                setInvoices={props.setInvoices}
+                setInvoice={setInvoice}
               />
             </ControlsDesktop>
           </Header>
@@ -106,6 +109,9 @@ const Invoice = (props: PropsType) => {
             invoiceId={invoice?.id}
             editInvoice={() => setShowForm(true)}
             openDeleteModal={() => setShowDeleteModal(true)}
+            invoices={props.invoices}
+            setInvoices={props.setInvoices}
+            setInvoice={setInvoice}
           />
         </ControlsMobile>
       ) : null}
