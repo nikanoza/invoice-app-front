@@ -36,8 +36,8 @@ const Controls: React.FC<PropsType> = (props) => {
       };
 
       await updateInvoice(updatedInvoice, props.invoiceId);
-      props.setInvoices(clone);
       props.setInvoice(clone[invoiceIndex]);
+      props.setInvoices(clone);
     } catch (error) {}
   };
 

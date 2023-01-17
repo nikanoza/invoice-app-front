@@ -13,6 +13,10 @@ export const getInvoices = () => {
   return instance.get("/invoices");
 };
 
+export const getInvoice = (id: string) => {
+  return instance.get("/invoices/" + id);
+};
+
 export const addInvoice = (invoice: NewInvoice) => {
   return instance.post("/invoices", invoice);
 };

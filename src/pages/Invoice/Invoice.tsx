@@ -1,7 +1,8 @@
 import { Delete, FormComponent, Info } from "components";
 import Controls from "components/Controls";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { getInvoice } from "services";
 import styled from "styled-components";
 import { ArrowLeft } from "svg";
 import { InvoiceType, StyledComponentsProps } from "types";
@@ -18,6 +19,19 @@ const Invoice = (props: PropsType) => {
   const [invoice, setInvoice] = useState<InvoiceType | null>(item || null);
   const [showForm, setShowForm] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchInvoice = async () => {
+      try {
+        const response = await getInvoice(id || "");
+        setInvoice(response.data);
+      } catch (error) {}
+    };
+
+    if (!item) {
+      fetchInvoice();
+    }
+  }, [id, item]);
 
   return (
     <InvoiceElement>
