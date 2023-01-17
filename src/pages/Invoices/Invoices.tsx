@@ -44,9 +44,7 @@ const Invoices = (props: PropsType) => {
         <div>
           <Title dark={props.darkMode}>Invoices</Title>
           <Amount dark={props.darkMode}>
-            {props.invoices.length === 0
-              ? "No invoices"
-              : props.invoices.length + " invoices"}
+            {array.length === 0 ? "No invoices" : array.length + " invoices"}
           </Amount>
         </div>
         <FilterSelect
