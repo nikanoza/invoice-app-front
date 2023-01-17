@@ -20,3 +20,7 @@ export const addInvoice = (invoice: NewInvoice) => {
 export const updateInvoice = (invoice: NewInvoice, id: string) => {
   return instance.put("/invoices/" + id, invoice);
 };
+
+export const removeInvoice = (id: string) => {
+  return instance.delete("/invoices/" + id);
+};

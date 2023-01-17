@@ -37,6 +37,8 @@ const Invoice = (props: PropsType) => {
           darkMode={props.darkMode}
           id={invoice.id}
           close={() => setShowDeleteModal(false)}
+          setInvoices={props.setInvoices}
+          invoices={props.invoices}
         />
       ) : null}
       <InvoiceTop>

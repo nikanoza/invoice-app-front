@@ -1,10 +1,28 @@
+import { useNavigate } from "react-router-dom";
+import { removeInvoice } from "services";
 import styled, { css } from "styled-components";
-import { StyledComponentsProps } from "types";
+import { InvoiceType, StyledComponentsProps } from "types";
 
-const Delete: React.FC<{ darkMode: boolean; id: string; close: () => void }> = (
-  props
-) => {
-  const invoiceDeleteHandler = () => {};
+type PropsType = {
+  darkMode: boolean;
+  id: string;
+  close: () => void;
+  invoices: InvoiceType[];
+  setInvoices: React.Dispatch<React.SetStateAction<InvoiceType[]>>;
+};
+
+const Delete: React.FC<PropsType> = (props) => {
+  const navigate = useNavigate();
+  const invoiceDeleteHandler = async () => {
+    try {
+      await removeInvoice(props.id);
+      const clone = [...props.invoices].filter(
+        (invoice) => invoice.id !== props.id
+      );
+      props.setInvoices(clone);
+      navigate("/invoices");
+    } catch (error) {}
+  };
   return (
     <DeleteElement>
       <PopUp dark={props.darkMode}>
