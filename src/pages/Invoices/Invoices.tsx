@@ -1,4 +1,4 @@
-import { FilterSelect, FormComponent, InvoiceBox } from "components";
+import { Empty, FilterSelect, FormComponent, InvoiceBox } from "components";
 import { useState } from "react";
 import styled from "styled-components";
 import { Plus } from "svg";
@@ -75,6 +75,7 @@ const Invoices = (props: PropsType) => {
           />
         ))}
       </InvoicesList>
+      {array.length === 0 ? <Empty darkMode={props.darkMode} /> : null}
     </Wrapper>
   );
 };
