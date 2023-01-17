@@ -1,4 +1,4 @@
-import { FormComponent, Info } from "components";
+import { Delete, FormComponent, Info } from "components";
 import Controls from "components/Controls";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -17,6 +17,7 @@ const Invoice = (props: PropsType) => {
   const item = props.invoices.find((invoice) => invoice.id === id);
   const [invoice, setInvoice] = useState<InvoiceType | null>(item || null);
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
 
   return (
     <InvoiceElement>
@@ -29,6 +30,13 @@ const Invoice = (props: PropsType) => {
           invoice={item}
           setInvoice={setInvoice}
           invoices={props.invoices}
+        />
+      ) : null}
+      {showDeleteModal && invoice ? (
+        <Delete
+          darkMode={props.darkMode}
+          id={invoice.id}
+          close={() => setShowDeleteModal(false)}
         />
       ) : null}
       <InvoiceTop>
@@ -82,6 +90,7 @@ const Invoice = (props: PropsType) => {
                 darkMode={props.darkMode}
                 invoiceId={invoice?.id}
                 editInvoice={() => setShowForm(true)}
+                openDeleteModal={() => setShowDeleteModal(true)}
               />
             </ControlsDesktop>
           </Header>
@@ -94,6 +103,7 @@ const Invoice = (props: PropsType) => {
             darkMode={props.darkMode}
             invoiceId={invoice?.id}
             editInvoice={() => setShowForm(true)}
+            openDeleteModal={() => setShowDeleteModal(true)}
           />
         </ControlsMobile>
       ) : null}

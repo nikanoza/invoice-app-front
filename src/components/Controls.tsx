@@ -5,6 +5,7 @@ type PropsType = {
   darkMode: boolean;
   invoiceId: string;
   editInvoice: () => void;
+  openDeleteModal: () => void;
 };
 
 const Controls: React.FC<PropsType> = (props) => {
@@ -13,7 +14,11 @@ const Controls: React.FC<PropsType> = (props) => {
       <Edit dark={props.darkMode} onClick={props.editInvoice}>
         edit
       </Edit>
-      <Delete dark={props.darkMode} color="var(--Blood)">
+      <Delete
+        dark={props.darkMode}
+        color="var(--Blood)"
+        onClick={props.openDeleteModal}
+      >
         delete
       </Delete>
       <Mark dark={props.darkMode} color="var(--Violet)">

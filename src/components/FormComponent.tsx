@@ -24,7 +24,7 @@ const FormComponent: React.FC<{
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     getValues,
     setValue,
     trigger,

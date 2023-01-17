@@ -5,3 +5,4 @@ export { default as Info } from "./Info";
 export { default as Items } from "./Items";
 export { default as Backdrop } from "./Backdrop";
 export { default as FormComponent } from "./FormComponent";
+export { default as Delete } from "./Delete";
